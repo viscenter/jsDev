@@ -135,4 +135,4 @@
 
 	var FirstPartOFurl = "http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad";
 	var LastPartOfurl = "&w=500";
-	var page = 1;
+	var page = 0;
