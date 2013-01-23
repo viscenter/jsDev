@@ -1,0 +1,72 @@
+#LeTitle
+{
+    text-align:center;
+}
+
+#InitialButtons
+{
+    text-align:center;
+}
+
+#GoToButtons
+{
+    //text-align:center
+    display:block; 
+    position:absolute;
+   left: 50%;
+   margin-top: 0px; /* Half the height */
+   margin-left: -200px; /* Half the width */   
+}
+
+#TheButtons
+{
+    //text-align:center
+    display:block; 
+    position:absolute;
+   left: 50%;
+   margin-top: 50px; /* Half the height */
+   margin-left: -300px; /* Half the width */   
+}
+
+img#mainDisplay
+{   
+    display: block;    
+    position:absolute;
+    z-index:-1; 
+    left: 50%;
+    margin-top: 100px; /* Half the height */
+    margin-left: -250px; /* Half the width */
+}
+
+#PageNumber
+{
+    display:block; 
+    position:absolute;
+   left: 50%;
+   margin-top: 70px; /* Half the height */
+   margin-left: -20px; /* Half the width */   
+}
+
+.TheLayers
+{   
+    display: block;    
+    position:absolute;
+    opacity: 0.3;
+    z-index:1; 
+    left: 50%;
+    margin-top: 50px; /* Half the height */
+    margin-left: -250px; /* Half the width */
+}
+
+#ST_layers
+{
+   overflow: auto; 
+   width: auto; 
+   display:block; 
+   max-height:130px; 
+   max-width:100px; 
+   background-color: #FFF; 
+   height: auto; 
+   border: 1px double #336699; 
+   padding-left: 2px;
+}

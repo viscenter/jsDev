@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<script>
+
+	var FirstPartOFurl = "http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad";
+	var LastPartOfurl = "&w=500";
+	var page = 1;
+
+function myFunction()
+{
+var stress = "stress";
+//alert("Hello! I am an alert box!");
+alert(stress+stress);
+}
+function getPrev()
+{
+	page = page- 1;
+	var strpage = page.toString();
+	document.getElementById("mainDisplay").src=(FirstPartOFurl +  pad(strpage,3) + LastPartOfurl);
+}
+
+function getNextImage()
+{
+	page = page+ 1;
+	var strpage = page.toString();
+	document.getElementById("mainDisplay").src=(FirstPartOFurl + pad(strpage,3) + LastPartOfurl);
+}
+
+function pad(str,lenght)
+{
+	var hold = str;
+	while((hold.length) < 3)
+	{
+		hold = "0" + hold;
+	}
+	return hold;
+}
+
+</script>
+
+
+<script src="query-1.8.3.js"></script>
+<script>
+
+
+
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#mainDisplay").fadeToggle();
+  });
+});
+</script>
+</head>
+<body>
+
+<p>Chad Gosples .</p>
+<button> Click to fade in/out layers</button>
+
+<input type="button" onclick="getPrev()" value="perv Image" />
+<input type="button" onclick="getNextImage()" value="Next Image" />
+<input type="button" onclick="test()" value="test" />
+<br>
+<img align="middle" id="mainDisplay" src="Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750">
+
+
+<br>
+<a href="http://infoforest.vis.uky.edu/InfoForest/java_scrip_test/3djs/3d.html"> 3d</a>
+
+</body>
+</html>
+

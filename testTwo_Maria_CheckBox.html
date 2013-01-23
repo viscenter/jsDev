@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="ChadStyle.css" media="screen" />
+<script type="text/javascript" language="Javascript" SRC="iPadSwipe.js"></script>
+<script type="text/javascript" language="Javascript" SRC="layers_checkbox.js"></script>
+<script type="text/javascript" language="Javascript" SRC="pageControl.js"></script>
+
+
+<script type="text/javascript">
+
+function myFunction()
+{
+var stress = "stress";
+//alert("Hello! I am an alert box!");
+alert(stress+stress);
+}
+
+/*function translate(elem)
+{
+   alert("In function");
+   var txt=document.getElementById("Translate");
+   if (elem.checked) //add layer 
+   { alert("it is checked");
+     txt.innerHTML = "<img align='middle' src='Home.png' alt='Computerman' width='500' height='750'>";
+   }
+   else //remove layer
+   { alert("it is not checked");
+     txt.innerHTML = "";
+   }
+};
+*/
+
+
+</script>
+
+
+<script src="query-1.8.3.js"></script>
+<script>
+
+
+
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#mainDisplay").fadeToggle();
+  });
+});
+</script>
+</head>
+<body>
+
+<p id="LeTitle">Chad Gospels .</p>
+
+<div id="GoToButtons">
+Go to page: <input type="text" name="fname" size="3">
+of book: <select>
+             <option value="" disabled selected style="display:none;">Pick a book:</option>
+             <option>Luke</option>
+             <option>Mark</option>
+             <option>Matt</option> lkdsjaflkaj
+         </select>
+
+<input type="button" onclick="goToPage()" value="Go to page!" />
+
+</div>
+
+<div id="TheButtons">
+
+<a href="http://infoforest.vis.uky.edu/InfoForest/java_scrip_test/3djs/3d.html"> 3d</a>
+<input type="button" onclick="goHome()" value="Home Page" />
+<button> Click to fade in/out layers</button>
+<input type="button" onclick="getPrev()" value="Previous Image" />
+<input type="button" onclick="getNextImage()" value="Next Image" />
+
+<select id="I_layer" onchange="applyIlayer(this)">
+       <option value="" disabled selected style="display:none;">I layers</option>
+	<option value="Legacy">Legacy</option>
+	<option value="3D">3D</option>
+	<option value="Spectral">Spectral</option>
+       <option value="nothing">none</option>
+</select>
+
+
+ST layers:
+<div id="ST_layers">
+<label><input type="checkbox" name="translate_layer" value="Translate" id="translate" onchange="ST_translate(this);"> Translate</label><br>
+<label><input type="checkbox" name="transcript_layer" value="Transcript" id="transcript" onchange="ST_transcript(this);">Transcript</label><br>
+<label><input type="checkbox" name="highlight_layer" value="Highlights" id="highlights" onchange="ST_highlight(this);">Highlights</label>
+</div>
+
+</div>
+
+
+<br>
+
+<div id="swipeBox" ontouchstart="touchStart(event,'swipeBox');"  ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);" style="position:relative;width:100%;height:100%;">
+
+   <img align="middle" id="mainDisplay" src="Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750">
+
+</div>
+
+<div class="TheLayers" id="Ilayer"></div> <!-- Can only have one I layer displayed at a time -->
+
+<div class="TheLayers" id="Translate"></div>
+<div class="TheLayers" id="Transcript"></div>
+<div class="TheLayers" id="Highlights"></div>
+
+<div id="PageNumber"></div>
+
+</body>
+</html>
