@@ -1,3 +1,15 @@
+//I layers
+var LegacyURL = "";
+var ThreedURL = "";
+var SpectralURL = "";
+
+//ST layers
+var TransparentURL = "";
+var HighlightURL = "";
+var TranslateURL = "";
+
+var LastPartOfurl = "&w=500";
+
 function applyIlayer(elem)
 {
    Ilayer = elem.value;
@@ -10,6 +22,10 @@ function applyIlayer(elem)
    else 
    {  if(Ilayer === "3D")
       {
+         //source = (ThreedURL +  pad(strpage,3) + LastPartOfurl);
+	  //string = "<img align='middle' src='" + source + "' alt='Computerman' width='500' height='750'>";
+	  //txt.innerHTML = string;
+
          txt.innerHTML = "<img align='middle' src='apage.jpg' alt='Computerman' width='500' height='750'>"; 
       }
       else

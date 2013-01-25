@@ -6,6 +6,7 @@
 <script type="text/javascript" language="Javascript" SRC="iPadSwipe.js"></script>
 <script type="text/javascript" language="Javascript" SRC="layers_checkbox.js"></script>
 <script type="text/javascript" language="Javascript" SRC="pageControl.js"></script>
+<script type="text/javascript" language="Javascript" SRC="buttons.js"></script>
 
 
 <script type="text/javascript">
@@ -53,43 +54,20 @@ $(document).ready(function(){
 <p id="LeTitle">Chad Gospels .</p>
 
 <div id="GoToButtons">
-Go to page: <input type="text" name="fname" size="3">
-of book: <select>
+Go to page: <input type="text" name="fname" size="3" id="myPage">
+of book: <select id="Book" name="TheBook">
              <option value="" disabled selected style="display:none;">Pick a book:</option>
-             <option>Luke</option>
-             <option>Mark</option>
-             <option>Matt</option> lkdsjaflkaj
+             <option value="Luke">Luke</option>
+             <option value="Mark">Mark</option>
+             <option value="Matthew">Matthew</option>
          </select>
+      <input type="button" onclick="CheckIfNum()" value="Go to Page!" />
+</div>
 
-<input type="button" onclick="goToPage()" value="Go to page!" />
+<div id="Buttons">
 
 </div>
 
-<div id="TheButtons">
-
-<a href="http://infoforest.vis.uky.edu/InfoForest/java_scrip_test/3djs/3d.html"> 3d</a>
-<input type="button" onclick="goHome()" value="Home Page" />
-<button> Click to fade in/out layers</button>
-<input type="button" onclick="getPrev()" value="Previous Image" />
-<input type="button" onclick="getNextImage()" value="Next Image" />
-
-<select id="I_layer" onchange="applyIlayer(this)">
-       <option value="" disabled selected style="display:none;">I layers</option>
-	<option value="Legacy">Legacy</option>
-	<option value="3D">3D</option>
-	<option value="Spectral">Spectral</option>
-       <option value="nothing">none</option>
-</select>
-
-
-ST layers:
-<div id="ST_layers">
-<label><input type="checkbox" name="translate_layer" value="Translate" id="translate" onchange="ST_translate(this);"> Translate</label><br>
-<label><input type="checkbox" name="transcript_layer" value="Transcript" id="transcript" onchange="ST_transcript(this);">Transcript</label><br>
-<label><input type="checkbox" name="highlight_layer" value="Highlights" id="highlights" onchange="ST_highlight(this);">Highlights</label>
-</div>
-
-</div>
 
 
 <br>

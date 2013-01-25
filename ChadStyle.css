@@ -54,7 +54,7 @@ img#mainDisplay
     opacity: 0.3;
     z-index:1; 
     left: 50%;
-    margin-top: 50px; /* Half the height */
+    margin-top: 100px; /* Half the height */
     margin-left: -250px; /* Half the width */
 }
 
