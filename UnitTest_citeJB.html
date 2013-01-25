@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+<script type="text/javascript" language="Javascript" SRC="./citeJB.js"></script>
+<script type="text/javascript" language="Javascript" SRC="citeJB.js"></script>
+</head>
+
+<body>
+<br>
+<input type="button" onclick="build()" value="build citeJB object" /> <div id="buildD"></div>
+<br>
+<input type="button" onclick="url()" value="Get a url from the object" /> <div id="urlD"></div>
+<br>
+<input type="button" onclick="next()" value="get the next url" /><div id="nextD"></div>
+<br>
+<input type="button" onclick="prev()" value="get the prev url" /><div id="prevD"></div>
+<br>
+
+
+
+<script>
+var chadUrn;
+function build()
+{ 
+  var txt=document.getElementById("buildD");
+  var chadUrn_sub = new citeUrn("/amphoreus.hpcc.uh.edu", //set server
+  "/tomcat/chsimg/Img",                               //set dir
+  "cite",                                             // set CITE namespace
+  "fufolioimg",                                       //set CITE work ID
+  "ChadRGB.Chad" ,                                    //set collection ID
+  "1000",                                             //set default Image size
+   1,                                                 //set start page
+   "updateTargetID" );                                //set the update target ID
+   
+   
+  if(chadUrn_sub.isCreated) txt.innerHTML = "pass";
+  else txt.innerHTML ="fail";
+  
+ chadUrn = chadUrn_sub; 							  // quick fix to scoop issues
+}
+
+
+function url()
+{
+  var txt=document.getElementById("urlD");
+  txt.innerHTML = chadUrn.url;
+}
+
+function next()
+{
+  var txt=document.getElementById("nextD");
+  txt.innerHTML = chadUrn.nextPage();
+}
+
+function prev()
+{
+    var txt=document.getElementById("prevD");
+  txt.innerHTML= chadUrn.prevPage();
+}
+
+</script>
+
+</body>
+</html>
