@@ -1,6 +1,18 @@
 var FirstPartOFurl = "http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad";
-var LastPartOfurl = "&w=500";
+var LastPartOfurl = "&w=1000";
 var page = 0;
+
+var LastGospelPage = 233;
+
+var FirstMarkPage = 0;
+var LastMarkPage = 141;
+
+var FirstMatthewPage = 141;
+var LastMatthewPage = 217;
+
+var FirstLukePage = 217;
+var LastLukePage = 233;
+
 
 function whichPage()
 {
@@ -13,18 +25,18 @@ function whichPage()
 
    if(LeBook === "Luke")
    { 
-      page = page+217; //assuming that Luke starts at page 218
+      page = page+FirstLukePage; //assuming that Luke starts at page 218
    }
    else 
    {  if(LeBook === "Mark")
       {
-         page = page; //assuming that Mark starts at page 1
+         page = page+FirstMarkPage; //assuming that Mark starts at page 1
       }
       else
       {
          if(LeBook === "Matthew")
          { 
-             page = page+140; //assuming that Matthew starts at page 141
+             page = page+FirstMatthewPage; //assuming that Matthew starts at page 142
          }  
       }
     }
@@ -35,12 +47,13 @@ function whichPage()
 
 function CheckIfNum()
 {
+   var good = false;
    var LePage = document.getElementById("myPage");
-   var NumPage = LePage.value;
+   var NumPage = Number(LePage.value);
    
    var LeBook = document.getElementById("Book");
 
-   if(NumPage === "") //check if page text box has any value. if it doesn't, tell the user through an alert box.
+   if(LePage.value === "") //check if page text box has any value. if it doesn't, tell the user through an alert box.
    {
 	alert("Please write the number of the page you want to view.");
    }
@@ -62,12 +75,50 @@ function CheckIfNum()
 	   	{
 		   alert("Please select the book you want to view.");
 	       }
-	       else //if book was indeed selected, continue with calculating page number with page and book info and to display.
-	       {
-	          whichPage();
-   	       }
+	       else
+		{
+		   good = true;
+		}
 	   }
        }
+   }
+
+  if(good)
+  {
+		   //make sure page number doesn't exceed bounds of book
+		   if(LeBook.value === "Mark")
+		   {
+			if(NumPage+FirstMarkPage > LastMarkPage)
+			{
+			   alert("Page number exceeds number of pages of the selected book.");
+                     }
+                     else
+			{
+	                 whichPage();
+			}
+		   }
+		   if(LeBook.value === "Matthew")
+		   {  	
+		       if(NumPage+FirstMatthewPage > LastMatthewPage)
+			{
+			   alert("Page number exceeds number of pages of the selected book.");
+                     }
+                     else
+			{
+	                 whichPage();
+			}
+		   }
+		   if(LeBook.value === "Luke")
+		   {
+			if(NumPage+FirstLukePage > LastLukePage)
+			{
+			   alert("Page number exceeds number of pages of the selected book.");
+                     }
+                     else
+			{
+	                 whichPage();
+			}
+		   }
    }
 
 }
