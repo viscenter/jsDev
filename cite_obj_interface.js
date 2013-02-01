@@ -75,40 +75,23 @@ function whichPage()
 
    LeBook = document.getElementById("Book");
    LeBook = LeBook.value;
-
-   if(LeBook === "Luke")
-   { 
-      page = page+217; //assuming that Luke starts at page 218
-   }
-   else 
-   {  if(LeBook === "Mark")
-      {
-         page = page; //assuming that Mark starts at page 1
-      }
-      else
-      {
-         if(LeBook === "Matthew")
-         { 
-             page = page+140; //assuming that Matthew starts at page 141
-         }  
-      }
+    
+    switch(LeBook)
+    {
+      case "Luke":
+	page = page+217;
+	break;
+      case "Mark":
+	page = page;
+	break;
+      case "Matthew":
+	page = page+140;
+	break;
     }
 
    GoToPage(page);
           
 }
-
-
-
-function CheckIfNum()
-{
-   var LePage = document.getElementById("myPage");
-   var NumPage = LePage.value;
-   
-   var LeBook = document.getElementById("Book");
-
-}
-
 
 function CheckIfNum()
 {
@@ -124,8 +107,8 @@ function CheckIfNum()
    }
    else //there is a value in the text box
    {
-   	if(isNaN(NumPage)) //check if page number is NOT a number. if it isn't, alert the user. 
-   	{
+        if(isNaN(NumPage)) //check if page number is NOT a number. if it isn't, alert the user. 
+        {
           alert("Input is not a number.");
    	}
    	else //if page is a number, make sure it's a positive number
@@ -150,40 +133,35 @@ function CheckIfNum()
 
   if(good)
   {
-		   //make sure page number doesn't exceed bounds of book
-		   if(LeBook.value === "Mark")
-		   {
-			if(NumPage+FirstMarkPage > LastMarkPage)
-			{
-			   alert("Page number exceeds number of pages of the selected book.");
-                     }
-                     else
-			{
-	                 whichPage();
-			}
-		   }
-		   if(LeBook.value === "Matthew")
-		   {  	
-		       if(NumPage+FirstMatthewPage > LastMatthewPage)
-			{
-			   alert("Page number exceeds number of pages of the selected book.");
-                     }
-                     else
-			{
-	                 whichPage();
-			}
-		   }
-		   if(LeBook.value === "Luke")
-		   {
-			if(NumPage+FirstLukePage > LastLukePage)
-			{
-			   alert("Page number exceeds number of pages of the selected book.");
-                     }
-                     else
-			{
-	                 whichPage();
-			}
-		   }
+    //make sure page number doesn't exceed bounds of book
+
+    switch(LeBook.value)
+    {
+        case "Mark":
+            exceedsCheck(NumPage,FirstMarkPage,LastMarkPage);
+            break;
+        case "Matthew":
+            exceedsCheck(NumPage,FirstMatthewPage,LastMatthewPage);
+            break;
+        case "Luke":
+            exceedsCheck(NumPage,FirstLukePage,LastLukePage)
+            break;
+    }
+      
    }
 
 }
+
+function exceedsCheck(PageNum, FirstPage, LastPage)
+{
+    if(PageNum+FirstPage > LastPage)
+    {
+	alert("Page number exceeds number of pages of the selected book.");
+    }
+    else
+    {
+	whichPage();
+    }
+}
+
+

@@ -40,22 +40,21 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   this.nextPage = nextPage;
   function nextPage()
   {
-    this.pageNumber = this.pageNumber +1 ;
-    this.buildUrl();
+    if(this.pageNumber != 233) //if not in the last page, proceed to go to next page
+    {
+          this.pageNumber = this.pageNumber +1 ;
+          this.buildUrl();
+    }
     return this.url;
   }
 
   this.prevPage = prevPage;
   function prevPage()
   {
-    if(this.pageNumber = 1)
+    if(this.pageNumber != 1) //if not in the first page, proceed to go to previous page
     {
-      //alert("This is the first page.")
-    }
-    else{
-    this.pageNumber = this.pageNumber -1;
-    this.buildUrl();
-	
+          this.pageNumber = this.pageNumber -1;
+          this.buildUrl();
     }
     return this.url;
   }
