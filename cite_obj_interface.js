@@ -1,6 +1,23 @@
 //cite management
 var chad_cite;
 
+
+//var page = 0;
+
+var LastGospelPage = 233;
+
+var FirstMarkPage = 0;
+var LastMarkPage = 141;
+
+var FirstMatthewPage = 141;
+var LastMatthewPage = 217;
+
+var FirstLukePage = 217;
+var LastLukePage = 233;
+
+
+
+
 function setUpObj()
 {
   var txt=document.getElementById("buildD");
@@ -35,7 +52,8 @@ function getNextImage()
 function updatePage()
 {
     var txt=document.getElementById("PageNumber");
-	txt.innerHTML = "Page #"+((chad_cite.pageNumber).toString());	
+	txt.innerHTML = "Page #"+((chad_cite.pageNumber).toString());
+	//alert("I am cool5645");
 }
 
 function GoToPage(pageNum)
@@ -43,7 +61,7 @@ function GoToPage(pageNum)
    chad_cite.pageNumber = pageNum;
    chad_cite.buildUrl();
    document.getElementById("mainDisplay").src=chad_cite.url;
-   updataPage();
+  updatePage();
 }
 
 
@@ -89,7 +107,18 @@ function CheckIfNum()
    
    var LeBook = document.getElementById("Book");
 
-   if(NumPage === "") //check if page text box has any value. if it doesn't, tell the user through an alert box.
+}
+
+
+function CheckIfNum()
+{
+   var good = false;
+   var LePage = document.getElementById("myPage");
+   var NumPage = Number(LePage.value);
+   
+   var LeBook = document.getElementById("Book");
+
+   if(LePage.value === "") //check if page text box has any value. if it doesn't, tell the user through an alert box.
    {
 	alert("Please write the number of the page you want to view.");
    }
@@ -111,12 +140,50 @@ function CheckIfNum()
 	   	{
 		   alert("Please select the book you want to view.");
 	       }
-	       else //if book was indeed selected, continue with calculating page number with page and book info and to display.
-	       {
-	          whichPage();
-   	       }
+	       else
+		{
+		   good = true;
+		}
 	   }
        }
+   }
+
+  if(good)
+  {
+		   //make sure page number doesn't exceed bounds of book
+		   if(LeBook.value === "Mark")
+		   {
+			if(NumPage+FirstMarkPage > LastMarkPage)
+			{
+			   alert("Page number exceeds number of pages of the selected book.");
+                     }
+                     else
+			{
+	                 whichPage();
+			}
+		   }
+		   if(LeBook.value === "Matthew")
+		   {  	
+		       if(NumPage+FirstMatthewPage > LastMatthewPage)
+			{
+			   alert("Page number exceeds number of pages of the selected book.");
+                     }
+                     else
+			{
+	                 whichPage();
+			}
+		   }
+		   if(LeBook.value === "Luke")
+		   {
+			if(NumPage+FirstLukePage > LastLukePage)
+			{
+			   alert("Page number exceeds number of pages of the selected book.");
+                     }
+                     else
+			{
+	                 whichPage();
+			}
+		   }
    }
 
 }

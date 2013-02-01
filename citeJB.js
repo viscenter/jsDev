@@ -48,10 +48,16 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   this.prevPage = prevPage;
   function prevPage()
   {
+    if(this.pageNumber = 1)
+    {
+      //alert("This is the first page.")
+    }
+    else{
     this.pageNumber = this.pageNumber -1;
     this.buildUrl();
-	return this.url;
-
+	
+    }
+    return this.url;
   }
 
   
