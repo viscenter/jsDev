@@ -1,0 +1,48 @@
+
+/*shows box over original image*/
+div.mojozoom_marker {
+	position : absolute;
+	cursor : crosshair; 
+}
+
+div.mojozoom_border {
+	position : absolute;
+	left:0px;
+	top:0px;
+
+	border : 1px solid black;
+
+	width:100%;
+	height:100%;
+}
+
+div.mojozoom_fill {
+	
+	position : absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:100%;
+
+	background-color : white;
+
+	opacity : 0.2;
+	-moz-opacity : 0.2;
+	-khtml-opacity : 0.2;
+	filter:alpha(opacity=20);
+
+}
+
+/*changes the way you view the image on the smaller box of the side*/
+img.mojozoom_img {
+	padding : 0px;
+	border: 0px;	
+}
+
+/*moves around the smaller zoomed box, and determines the size and position of that box*/
+div.mojozoom_imgctr {
+	position : absolute;
+	margin-left : 100px;
+	border : 1px solid black;
+}
+

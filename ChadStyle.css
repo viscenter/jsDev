@@ -10,7 +10,7 @@
 
 #GoToButtons
 {
-    //text-align:center
+    text-align:center
     display:block; 
     position:absolute;
    left: 50%;
@@ -18,9 +18,9 @@
    margin-left: -200px; /* Half the width */   
 }
 
-#TheButtons
+#Buttons
 {
-    //text-align:center
+    text-align:center
     display:block; 
     position:absolute;
    left: 50%;
@@ -28,15 +28,17 @@
    margin-left: -300px; /* Half the width */   
 }
 
+
 img#mainDisplay
 {   
     display: block;    
-    position:absolute;
+    /*position:absolute; */
     z-index:-1; 
-    left: 50%;
+    left: 245%; /*the winner! defeated the mojozoom witchcraft (it changed the position of the original image, ignoring the css)*/
     margin-top: 100px; /* Half the height */
-    margin-left: -250px; /* Half the width */
+    margin-left: 1000px; /* Half the width */
 }
+
 
 #PageNumber
 {

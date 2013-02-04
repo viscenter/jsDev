@@ -11,6 +11,10 @@
 <script type="text/javascript" language="Javascript" SRC="./citeJB.js"></script>
 <script type="text/javascript" language="Javascript" SRC="./cite_obj_interface.js"></script>
 
+<!-- Step 1: include the JavaScript and CSS files  -->
+<script type="text/javascript" src="mojozoom.js"></script>  
+<link type="text/css" href="mojozoom.css" rel="stylesheet" /> 
+
 <script type="text/javascript">
 setUpObj();
 
@@ -37,14 +41,14 @@ setUpObj();
 <script src="query-1.8.3.js"></script>
 <script>
 
-
-
 $(document).ready(function(){
   $("button").click(function(){
     $("#mainDisplay").fadeToggle();
   });
 });
-</script>
+ 
+</script>  
+
 </head>
 <body>
 
@@ -69,10 +73,14 @@ of book: <select id="Book" name="TheBook">
 
 <br>
 
+
 <div id="swipeBox" ontouchstart="touchStart(event,'swipeBox');"  ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);" style="position:relative;width:100%;height:100%;">
-
-   <img align="middle" id="mainDisplay" src="Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750">
-
+  
+<!-- <div id="displayedImage"> <!-- cooooool -->
+  <!-- Step 2: add the custom 'data-zoomsrc' attribute to your image to specify the source of the large image -->  
+   <img align="middle" id="mainDisplay" src="Chad_Cover_Image.jpg" data-zoomsrc="Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750">
+<!--</div> -->
+   
 </div>
 
 <div class="TheLayers" id="Ilayer"></div> <!-- Can only have one I layer displayed at a time -->

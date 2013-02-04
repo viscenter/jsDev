@@ -37,6 +37,15 @@ function getPrev()
 {
  	// change the source for the main image
  	document.getElementById("mainDisplay").src=chad_cite.prevPage();
+	
+	//block for the zoom function 
+	chad_cite.defaultImageSize = "3000";
+	chad_cite.buildUrl();
+	document.getElementById("mainDisplay").setAttribute("data-zoomsrc", chad_cite.url); 
+	MojoZoom.init();
+	chad_cite.defaultImageSize = "1000";
+	
+	
  	// update the page number after changing page
  	updatePage();     
 }
@@ -45,8 +54,20 @@ function getNextImage()
 {
  	// change the source for the main image
  	document.getElementById("mainDisplay").src=chad_cite.nextPage();
+	
+	//block for the zoom function 
+	chad_cite.defaultImageSize = "3000";
+	chad_cite.buildUrl();
+	document.getElementById("mainDisplay").setAttribute("data-zoomsrc", chad_cite.url); 
+	MojoZoom.init();
+	chad_cite.defaultImageSize = "1000";
+
+	
  	// update the page number after changing page
- 	updatePage();          
+ 	updatePage();
+	
+	
+	
 }
 
 function updatePage()
@@ -61,6 +82,15 @@ function GoToPage(pageNum)
    chad_cite.pageNumber = pageNum;
    chad_cite.buildUrl();
    document.getElementById("mainDisplay").src=chad_cite.url;
+   
+   	//block for the zoom function 
+	chad_cite.defaultImageSize = "3000";
+	chad_cite.buildUrl();
+	document.getElementById("mainDisplay").setAttribute("data-zoomsrc", chad_cite.url); 
+	MojoZoom.init();
+	chad_cite.defaultImageSize = "1000";
+
+   
   updatePage();
 }
 

@@ -32,7 +32,7 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   this.buildUrl = buildUrl;
   function buildUrl()
   {
-     this.url = "http://" +this.server+this.dir+"?&request="+this.requestType+"&urn=urn:"+this.citeNS+":"+this.workID+":"+this.collectionID+pad(((this.pageNumber).toString()),3)+"&w="+defaultImageSize;
+     this.url = "http://" +this.server+this.dir+"?&request="+this.requestType+"&urn=urn:"+this.citeNS+":"+this.workID+":"+this.collectionID+pad(((this.pageNumber).toString()),3)+"&w="+this.defaultImageSize;
    //http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad001&w=500";
   }
   
