@@ -2,7 +2,7 @@
 //citeUrn object file
 
 //Constructor for citeUrn objects 
-function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pageNumber, updateTargetID)
+function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pageNumber, updateTargetID,maxPage)
 {
 
 
@@ -15,6 +15,7 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   if (typeof collectionID != 'string') alert("wrong type for collectionID");
   if (typeof defaultImageSize != 'string') alert("wrong type for defaultImageSize");
   if (typeof updateTargetID != 'string') alert("wrong type for updateTargetID");
+  if (typeof maxPage != 'number') alert("wrong type for maxPage");
 
   //fill in the attributes for the object
   this.server = server;
@@ -25,7 +26,7 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   this.defaultImageSize = defaultImageSize;
   this.pageNumber = pageNumber;
   this.updateTargetID = updateTargetID;
-
+  this.maxPage = maxPage;
 
 
 
@@ -40,11 +41,15 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   this.nextPage = nextPage;
   function nextPage()
   {
-    if(this.pageNumber != 233) //if not in the last page, proceed to go to next page
+    if(this.pageNumber < this.maxPage) //if not in the last page, proceed to go to next page
     {
           this.pageNumber = this.pageNumber +1 ;
           this.buildUrl();
     }
+    else
+    {
+    	alert("In backend interface. the max page has been reached");
+	}
     return this.url;
   }
 
