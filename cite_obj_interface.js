@@ -28,8 +28,8 @@ function setUpObj()
   "ChadRGB.Chad" ,                                    //set collection ID
   "1000",                                             //set default Image size
    1,                                                 //set start page
-   "updateTargetID",                                 //set the update target ID
-   233);											 //set last page in book
+   "updateTargetID" );                                //set the update target ID
+   
 }
 
 
