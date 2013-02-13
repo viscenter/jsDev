@@ -15,29 +15,44 @@
     position:absolute;
    left: 50%;
    margin-top: 0px; /* Half the height */
-   margin-left: -200px; /* Half the width */   
+   margin-left: -200px; /* Half the width */
+   z-index: 3;
 }
 
 #Buttons
 {
     text-align:center
     display:block; 
-    position:absolute;
+    position:absolute; 
    left: 50%;
    margin-top: 50px; /* Half the height */
-   margin-left: -300px; /* Half the width */   
+   margin-left: -300px; /* Half the width */
+      z-index: 3;
+
+}
+#swipeBox
+{
+    text-align:center;
+    margin-top:100px;
+    left:50%;
+    margin-left: -250px; /* Half the width */
+    z-index:-1;
+
 }
 
 
 img#mainDisplay
 {   
-    display: block;    
-    /*position:absolute; */
-    z-index:-1; 
-    left: 245%; /*the winner! defeated the mojozoom witchcraft (it changed the position of the original image, ignoring the css)*/
-    margin-top: 100px; /* Half the height */
-    margin-left: 1000px; /* Half the width */
-}
+   display: block;   
+   position:absolute; 
+   z-index:0;
+    
+ /* left: 50%;  */ /*the winner! defeated the mojozoom witchcraft (it changed the position of the original image, ignoring the css)*/
+
+
+  /*  margin-top: 100px; */  /* Half the height */
+ /*    margin-left: 0%; /* 1000px; /* Half the width */
+} 
 
 
 #PageNumber
@@ -49,15 +64,29 @@ img#mainDisplay
    margin-left: -20px; /* Half the width */   
 }
 
+.Original
+{   
+  display: block;  
+  position:absolute;
+
+  opacity: 1;
+  z-index:0; 
+ left: 0px;
+ margin-top: 0px;
+ margin-left: 0px;
+}
+
+
 .TheLayers
 {   
-    display: block;    
+    /*display: block; */   
     position:absolute;
+
     opacity: 0.3;
-    z-index:1; 
-    left: 50%;
-    margin-top: 100px; /* Half the height */
-    margin-left: -250px; /* Half the width */
+    z-index:0; 
+    left: 0px;
+    margin-top: 0px; 
+    margin-left: 0px; 
 }
 
 #ST_layers
@@ -71,4 +100,5 @@ img#mainDisplay
    height: auto; 
    border: 1px double #336699; 
    padding-left: 2px;
+   
 }
