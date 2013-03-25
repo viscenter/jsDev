@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<!-- Copyright (c) 2005 Tim Taylor Consulting (see LICENSE.txt) -->
+<html>
+<head>
+
+<title>Dragging with JavaScript</title>
+<link rel="stylesheet" type="text/css" href="common/common.css"/>
+<style type="text/css">
+	.layer_ruler {
+		position: absolute;
+		bottom: 600px;
+		left: 50px;
+	}
+	div {
+		margin: 0px;
+		padding: 0px;
+	}
+	.verticalgridline {
+		padding-top: 27px;
+	}
+	.box, .handle {
+		font-size: 14px;
+		font-family: Arial, sans-serif;
+		/*border: 1px solid #aaa;*/
+	}
+	.box {
+		float: left;
+		/*padding: 0px;
+		width: 123px;
+		height: 123px;
+		margin: 5px;
+		background-color: #eee; */
+		height:15px;
+		width:20px;
+		background-image:url('bluearrow.jpeg');
+		z-index: 1;
+	}
+	.handle {
+		cursor: move;
+		height: 14px;
+		border-width: 0px 0px 1px 0px;
+		background: #666;
+		color: #eee;
+		padding: 2px 6px;
+		margin: 0px;
+	}
+	.box p {
+		font-size: 12px;
+		margin: 5px 5px 10px 5px;
+		text-align: left;
+		white-space: normal;
+	}
+	#boxDrag, #boxVerticalOnly, #boxHorizontalOnly, #boxRegionConstraint, 
+	#boxThreshold, #boxAbsolute, #boxAbsolute1, #boxAbsolute2 {
+		cursor: move;
+	}
+	#boxAbsolute1 {
+		position: absolute;
+		top: 575px; /* has to be same as x coordinate of "up" variable bound. The bigger, the lower. The smaller, the higher.*/
+		left: 50px;
+	}
+	#boxAbsolute2 {
+		position: absolute;
+		top: 595px; /* has to be same as x coordinate of "up" variable bound. The bigger, the lower. The smaller, the higher.*/
+		left: 50px;
+	}
+</style>
+
+<script language="JavaScript" type="text/javascript" src="source/org/tool-man/core.js"></script>
+<script language="JavaScript" type="text/javascript" src="source/org/tool-man/events.js"></script>
+<script language="JavaScript" type="text/javascript" src="source/org/tool-man/css.js"></script>
+<script language="JavaScript" type="text/javascript" src="source/org/tool-man/coordinates.js"></script>
+<script language="JavaScript" type="text/javascript" src="source/org/tool-man/drag.js"></script>
+
+<script language="JavaScript">
+window.onload = function() {
+	var group
+	var coordinates = ToolMan.coordinates()
+	var drag = ToolMan.drag()
+
+	// applies for both sliders
+	var up = coordinates.create(50,95) //bound on moving up
+	var down = coordinates.create(50,595) //bound on moving down
+
+	var boxAbsolute = document.getElementById("boxAbsolute1")
+	group = drag.createSimpleGroup(boxAbsolute)
+	group.verticalOnly()
+	group.addTransform(function(coordinate, dragEvent) {
+		var scrollOffset = coordinates.scrollOffset()
+		if (coordinate.y < scrollOffset.y)
+			return coordinates.create(coordinate.x, scrollOffset.y)
+
+		var clientHeight = coordinates.clientSize().y
+		var boxHeight = coordinates._size(boxAbsolute).y
+		if ((coordinate.y + boxHeight) > (scrollOffset.y + clientHeight))
+			return coordinates.create(coordinate.x, 
+					(scrollOffset.y + clientHeight) - boxHeight)
+		//return coordinate
+		return coordinate.constrainTo(up, down)
+	})
+	var x = boxAbsolute.offsetLeft
+	var y = boxAbsolute.offsetTop
+	document.getElementById("box1_position").innerHTML = "first slider is in position" + x + "," + y
+
+
+	var boxAbsolute = document.getElementById("boxAbsolute2")
+	group = drag.createSimpleGroup(boxAbsolute)
+	group.verticalOnly()
+	group.addTransform(function(coordinate, dragEvent) {
+		var scrollOffset = coordinates.scrollOffset()
+		if (coordinate.y < scrollOffset.y)
+			return coordinates.create(coordinate.x, scrollOffset.y)
+
+		var clientHeight = coordinates.clientSize().y
+		var boxHeight = coordinates._size(boxAbsolute).y
+		if ((coordinate.y + boxHeight) > (scrollOffset.y + clientHeight))
+			return coordinates.create(coordinate.x, 
+					(scrollOffset.y + clientHeight) - boxHeight)
+
+		//return coordinate
+		return coordinate.constrainTo(up, down)
+	})
+	var x = boxAbsolute.offsetLeft
+	var y = boxAbsolute.offsetTop
+	document.getElementById("box2_position").innerHTML = "second slider is in position" + x + "," + y
+}
+
+//-->
+</script>
+
+</head>
+<body>
+
+<div id="boxAbsolute1" class="box">
+	<p></p>
+</div>
+
+<div id="boxAbsolute2" class="box">
+	<p></p>
+</div>
+
+<img src="vertical_ruler.png" class="layer_ruler">
+
+<div id="box1_position"></div>
+<div id="box2_position"></div>
+
+<!--<div id="copyright">Copyright &copy; 2005 Tim Taylor Consulting-->
+<!--(<a href="LICENSE.txt">license</a>)</div>-->
+
+</body>
+</html>

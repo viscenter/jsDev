@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="language" content="english"> 
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+
+<title>Using JavaScript Image Map</title>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://davidlynch.org/projects/maphilight/jquery.maphilight.js"></script>
+
+<script type="text/javascript">
+
+$(function() 
+{
+   $('.map').maphilight();
+});
+
+</script>
+
+<script type="text/javascript">
+//<!--
+function translate(name){
+  document.myform.stage.value = name
+}
+//-->
+
+
+</script>
+
+
+</head>
+<body>
+<form name="myform">
+   <input type="text" name="stage" size="50" />
+</form>
+<!-- Create  Mappings -->
+
+<img src="Chad002.jpg" alt="Chad page 2" class="map" usemap="#ChadPage2"/>
+
+<map name="ChadPage2">
+
+   <area shape="rect" title="this is a word" coords="199,344,245,374" href="javascript:translate('lady')" target="" />
+   <area shape="rect" coords="250,345,399,374" href="javascript:translate('cucumber')" target="" />
+   <area shape="rect" coords="408,345,559,375" href="javascript:translate('starburts')" target="" />
+   <area shape="rect" coords="567,347,659,377" href="javascript:translate('icecream')" target="" />
+   <area shape="rect" coords="709,524,760,545" href="javascript:translate('lettuce')" target="" />
+   <area shape="rect" coords="183,381,276,412" href="javascript:translate('spinach')" target="" />
+   <area shape="rect" coords="281,385,347,415" href="javascript:translate('eagle')" target="" />
+   <area shape="rect" coords="352,384,417,416" href="javascript:translate('Merica')" target="" />
+   <area shape="rect" coords="423,385,519,418" href="javascript:translate('konichuwa')" target="" />
+   <area shape="rect" coords="522,388,651,418" href="javascript:translate('no')" target="" />
+<!-- Created by Online Image Map Editor (http://www.maschek.hu/imagemap/index) -->
+</map>
+
+
+
+</body>
+</html>
