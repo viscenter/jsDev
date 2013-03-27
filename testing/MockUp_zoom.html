@@ -1,0 +1,293 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Mock Up</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+
+  <script type="text/javascript" language="Javascript" SRC="http://infoforest.vis.uky.edu/InfoForest/jsDev/citeJB.js"></script>
+  <script type="text/javascript" language="Javascript" SRC="http://infoforest.vis.uky.edu/InfoForest/jsDev/cite_obj_interface2.js"></script>
+  
+  <!-- files for zoom/pan -->
+  
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	
+  <script type="text/javascript" src="https://raw.github.com/brandonaaron/jquery-mousewheel/master/jquery.mousewheel.js"></script>
+	  
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js"></script>
+  <script type="text/javascript" src="https://raw.github.com/benlumley/jQuery-PanZoom/master/jquery-panzoom.js"></script>
+
+
+   <style type="text/css">
+
+    #sortable1 { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px;}
+    #sortable2 { list-style-type: none; margin-top: 50px; padding: 0 0 2.5em; float: left; margin-right: 10px;}
+    #sortable1 li { margin: 0 5px 5px 5px; padding: 50px; font-size: 1.2em; width: 120px;}
+    
+    #sortable2 li { display: inline; margin: 0 5px 5px 5px; padding: 50px; font-size: 1.2em; width: 120px; }
+  
+    #drop_layer
+    {
+      width:225px;
+      height: 900px;
+      padding:10px;
+      border:5px solid gray;
+      margin:10px;
+    }
+  
+    #select_layer
+    {
+      width:1500px;
+      height: 150px;
+      padding:10px;
+      border:5px solid gray;
+      margin:10px;
+    }
+   
+    #slider { width: 500px;}
+
+    html,body
+    { 
+	margin:0; 
+	padding:0; 
+	height:100%; 
+	width:100%; 
+    }
+    
+    #prev
+    {
+      margin-top: 400px;
+      float: left;
+    }
+    
+    #next
+    {
+      margin-top: 400px;
+      float: right;
+    }
+    
+    #pageAndSlider
+    {
+      margin-top: 100px;
+      margin-left: 500px;
+    }
+    
+    #DragLayers
+    {
+      margin-top: -800px;
+      margin-left: 200px; 
+    }
+    
+    div#pan
+    {
+      border: #dddddd 1px solid;
+      width: 500px;
+      height: 750px;
+      overflow: hidden;
+    }
+
+  </style>
+
+  <script type="text/javascript">
+
+	setUpObj();
+
+  </script>
+
+  <script>
+    
+  //sortable lists code
+    
+  $(function() {
+    $( "#sortable1" ).sortable({
+      items: "li:not(.ui-state-disabled)"
+    });
+ 
+    $( "#sortable2" ).sortable({
+      cancel: ".ui-state-disabled"
+    });
+ 
+    $( "#sortable1, #sortable2" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+  });  
+
+  //Page slider code
+  
+  mouseDown = 0;
+
+  $(function() {
+    $( "#slider" ).slider({
+      value:1,
+      min: 1,
+      max: 500,
+      step: 1,
+      slide: function( event, ui ) {
+        $( "#amount2" ).val( ui.value );
+	 document.getElementById('amount2').innerHTML = ui.value;
+        
+	 //to get position of sliding thing
+
+        x=$("a.ui-slider-handle").position();
+       
+	 theTop = x.top;
+	 theLeft = x.left;
+
+	 y = $("#slider").position();
+
+	 theTop = theTop + y.top + "px";
+	 theLeft = theLeft + y.left + "px";
+
+	$('#amount2').css( {
+    		'position': 'absolute',
+    		'top': theTop,   //worse problem
+   		'left': theLeft, //worse problem
+		'z-index': 1000,
+		'font-size': 12,
+		'text-align': 'center'
+	});
+
+	
+
+        //document.getElementById('positioning').innerHTML = "Top: " + theTop + " Left: " + theLeft ;
+
+      }
+    });
+    //$( "#amount" ).val( $( "#slider" ).slider( "value" ) );
+    $( "#amount2" ).val( $( "#slider" ).slider( "value" ) );
+
+    //x=$("#slider").position();
+    //document.getElementById('positioning').innerHTML = "Top: " + x.top + " Left: " + x.left ;
+
+  });
+  
+  // Zoom/pan code
+  
+  	$(document).ready(function () {
+        function initPanZoom() {
+          $('#pan img').panZoom({
+            'zoomIn'   	: 		$('#zoomin'),
+            'zoomOut' 	: 		$('#zoomout'),
+            'panUp'		  :		$('#panup'),
+            'panDown'		:		$('#pandown'),
+            'panLeft'		:		$('#panleft'),
+            'panRight'	:		$('#panright'),
+            'fit'       :   $('#fit'),
+            'destroy'   :   $('#destroy'),
+            'out_x1'    :   $('#x1'),
+            'out_y1'    :   $('#y1'),
+            'out_x2'    :   $('#x2'),
+            'out_y2'    :   $('#y2'),
+            'directedit':   true,
+            'debug'     :   false
+          });
+        };
+
+        initPanZoom();
+
+				// init the image switcher
+				$('#images img').bind('click', function () {
+					$('#pan img').attr('src', $(this).attr('src'));
+				});
+
+        // init the init button (for testing destroy/recreate)
+        $('#reinit').bind('click', function (event) {
+          if ($('#pan img').data('panZoom')) {
+            alert('Click destroy before trying to re-initialise panZoom');
+            return;
+          }
+          event.preventDefault();
+          initPanZoom();
+        });
+
+	});
+  
+  //check if mouse is of code (for page slider)
+  
+  function checkMouseUp ()
+  {
+	if(mouseDown == 1)
+	{
+		changeFlag(0);
+		GoToPage(Number(amount2.value));
+	}
+  }
+
+  function changeFlag(value)
+  {
+	mouseDown = value;
+  }
+
+  </script>
+</head>
+<body onmouseup="checkMouseUp();">
+
+<!-- previous and next arrows -->
+
+<input type="image" id="prev" src="http://3219a2.medialib.glogster.com/media/d2/d2a13373c0dc5af811bd246719f464c3740c0e7a80913917336d9fd6f58c44d1/13417280.gif" alt="previous" height="100px" width="100px" onclick="getPrev();">
+  
+<input type="image" id="next" src="http://dolphin-browser.com/wp-content/uploads/2012/08/rightArrow.gif" alt="next" height="100px" width="100px" onclick="getNextImage();">
+
+<!-- page slider ahead -->
+
+<div id="pageAndSlider">
+
+<div id="amount2"></div>
+
+<div id="slider" onmousedown="changeFlag(1);"></div>
+
+<div id="target"></div>
+
+<div id="pan" style="position: relative; width: 500px; height: 750px;">
+ <div id="original">  
+   <img  id="mainDisplay" src="http://infoforest.vis.uky.edu/InfoForest/jsDev/Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750" style="position: absolute;" opacity="1";>
+ </div>
+</div>
+
+<div id="controls">
+        <h2>Controls</h2>
+        <h3>Zoom</h3>
+        <a id="zoomin" href="#">
+          <!--<img src="icons/zoom_in.png"><br />-->
+          Zoom In </br>
+        </a>
+        <a id="zoomout" href="#">
+          <!--<img src="icons/zoom_out.png"><br />-->
+          Zoom Out
+        </a>
+
+</div>
+
+</div>
+
+<!-- sortable list ahead -->
+
+<div id="DragLayers">
+
+<div id="drop_layer">
+<ul id="sortable1" class="connectedSortable">
+  <li class="ui-state-default ui-state-disabled">Drop layers here!</li>
+  <li class="ui-state-default">original image</li>
+</ul>
+</div>  
+ 
+<div id="select_layer">  
+<ul id="sortable2" class="connectedSortable">
+  <li class="ui-state-default ui-state-disabled">Drag Layers!</li>
+  <li class="ui-state-highlight">1920</li>
+  <li class="ui-state-highlight">2000</li>
+  <li class="ui-state-highlight" style="background-image:url('https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT5dHq6ETspDzzd6SMVZwQ-obcRDaJzU-eU9CXDvCYof7R95K9I'); color:white;">2010</li>
+  <li class="ui-state-highlight">Translation</li>
+  <li class="ui-state-highlight">Transcript</li>
+</ul>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>jQuery PanZoom Example - by Ben Lumley</title>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<!--<script type="text/javascript" src="/js/jquery-panzoom-0.9.0.js"></script>-->
+	
+	<script type="text/javascript" src="https://raw.github.com/brandonaaron/jquery-mousewheel/master/jquery.mousewheel.js"></script>
+	  
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="http://cdn.jquerytools.org/1.2.5/all/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="https://raw.github.com/benlumley/jQuery-PanZoom/master/jquery-panzoom.js"></script>
+	  
+	  
+	<style type="text/css">
+		
+	div#pan {
+		border: #dddddd 1px solid;
+		width: 500px;
+		height: 750px;
+		overflow: hidden;
+	}
+	
+	</style>
+	  
+	<script type="text/javascript">
+	
+	$(document).ready(function () {
+        function initPanZoom() {
+          $('#pan img').panZoom({
+            'zoomIn'   	: 		$('#zoomin'),
+            'zoomOut' 	: 		$('#zoomout'),
+            'panUp'		  :		$('#panup'),
+            'panDown'		:		$('#pandown'),
+            'panLeft'		:		$('#panleft'),
+            'panRight'	:		$('#panright'),
+            'fit'       :   $('#fit'),
+            'destroy'   :   $('#destroy'),
+            'out_x1'    :   $('#x1'),
+            'out_y1'    :   $('#y1'),
+            'out_x2'    :   $('#x2'),
+            'out_y2'    :   $('#y2'),
+            'directedit':   true,
+            'debug'     :   false
+          });
+        };
+
+        initPanZoom();
+
+				// init the image switcher
+				$('#images img').bind('click', function () {
+					$('#pan img').attr('src', $(this).attr('src'));
+				});
+
+        // init the init button (for testing destroy/recreate)
+        $('#reinit').bind('click', function (event) {
+          if ($('#pan img').data('panZoom')) {
+            alert('Click destroy before trying to re-initialise panZoom');
+            return;
+          }
+          event.preventDefault();
+          initPanZoom();
+        });
+
+	});
+	</script>
+</head>
+
+<body>
+	
+ <div id="pan" style="position: relative; width: 500px; height: 750px;">
+        <img src="http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad002&w=1000" style="position: absolute;">
+</div>
+
+      <div id="controls">
+        <h2>Controls</h2>
+        <h3>Zoom</h3>
+        <a id="zoomin" href="#">
+          <!--<img src="icons/zoom_in.png"><br />-->
+          Zoom In </br>
+        </a>
+        <a id="zoomout" href="#">
+          <!--<img src="icons/zoom_out.png"><br />-->
+          Zoom Out
+        </a>
+
+      </div>
+
+    
+</body>
+
+</html>
