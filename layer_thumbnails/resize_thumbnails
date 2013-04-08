@@ -1,0 +1,35 @@
+#!/bin/bash
+
+convert -define jpeg:size=165x248  THUMBNAIL1912.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAIL1912.gif
+
+convert -define jpeg:size=165x248  THUMBNAIL1929.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAIL1929.gif
+
+convert -define jpeg:size=165x248  THUMBNAIL1962.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAIL1962.gif
+
+convert -define jpeg:size=165x248  THUMBNAIL2003.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAIL2003.gif
+
+convert -define jpeg:size=165x248  THUMBNAIL2010.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAIL2010.gif
+
+convert -define jpeg:size=165x248  THUMBNAIL3d.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAIL3d.gif
+
+convert -define jpeg:size=165x248  THUMBNAILhighlight.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAILhighlight.gif
+
+convert -define jpeg:size=165x248  THUMBNAILlatin.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAILlatin.gif
+
+convert -define jpeg:size=165x248  THUMBNAILmultispectral.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAILmultispectral.gif
+
+convert -define jpeg:size=165x248  THUMBNAILverses.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAILverses.gif
+
+convert -define jpeg:size=165x248  THUMBNAILwords.jpg  -auto-orient \
+          -thumbnail 250x200   -unsharp 0x.5  THUMBNAILwords.gif
+

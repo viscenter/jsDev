@@ -1,0 +1,119 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Slider - Snap to increments</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+  <script type="text/javascript" language="Javascript" SRC="http://infoforest.vis.uky.edu/InfoForest/jsDev/citeJB.js"></script>
+  <script type="text/javascript" language="Javascript" SRC="http://infoforest.vis.uky.edu/InfoForest/jsDev/cite_obj_interface2.js"></script>
+
+
+   <style type="text/css">
+
+    #slider { width: 500px;}
+
+    html,body
+    { 
+	margin:0; 
+	padding:0; 
+	height:100%; 
+	width:100%; 
+    }
+
+  </style>
+
+  <script type="text/javascript">
+
+	setUpObj();
+
+  </script>
+
+  <script>
+
+  mouseDown = 0;
+
+  $(function() {
+    $( "#slider" ).slider({
+      value:1,
+      min: 1,
+      max: 500,
+      step: 1,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( ui.value );
+	 document.getElementById('amount2').innerHTML = ui.value;
+        
+	 //to get position of sliding thing
+
+        x=$("a.ui-slider-handle").position();
+       
+	 theTop = x.top;
+	 theLeft = x.left;
+
+	 y = $("#slider").position();
+
+	 theTop = theTop + y.top + "px";
+	 theLeft = theLeft + y.left + "px";
+
+	$('#amount2').css( {
+    		'position': 'absolute',
+    		'top': theTop,   //worse problem
+   		'left': theLeft, //worse problem
+		'z-index': 1000,
+		'font-size': 12,
+		'text-align': 'center'
+	});
+
+	
+
+        //document.getElementById('positioning').innerHTML = "Top: " + theTop + " Left: " + theLeft ;
+
+      }
+    });
+    $( "#amount" ).val( $( "#slider" ).slider( "value" ) );
+    $( "#amount2" ).val( $( "#slider" ).slider( "value" ) );
+
+    //x=$("#slider").position();
+    //document.getElementById('positioning').innerHTML = "Top: " + x.top + " Left: " + x.left ;
+
+  });
+  
+  function checkMouseUp ()
+  {
+	if(mouseDown == 1)
+	{
+		changeFlag(0);
+		GoToPage(Number(amount.value));
+	}
+  }
+
+  function changeFlag(value)
+  {
+	mouseDown = value;
+  }
+
+
+  </script>
+</head>
+<body onmouseup="checkMouseUp();">
+
+<p>
+  <label for="amount">Page numbers:</label>
+  <input type="text" id="amount" style="border: 0; color: #f6931f; font-weight: bold;" />
+</p>
+ 
+<div id="amount2"></div>
+
+<div id="slider" onmousedown="changeFlag(1);"></div>
+
+<div id="target"></div>
+
+<div id="original">  
+   <img  id="mainDisplay" src="http://infoforest.vis.uky.edu/InfoForest/jsDev/Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750" opacity="1";>
+</div>
+
+</body>
+</html>

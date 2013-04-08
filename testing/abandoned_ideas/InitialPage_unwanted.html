@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="ChadStyle.css" media="screen" />
+    <!-- Use a JQuery ThemeRoller theme, in this case 'smoothness' -->
+    <link rel="stylesheet" type="text/css" href="dropdown-check-list.1.4/doc/smoothness-1.8.13/jquery-ui-1.8.13.custom.css">
+    <link rel="stylesheet" type="text/css" href="dropdown-check-list.1.4/src/ui.dropdownchecklist.themeroller.css">
+    <!--  <link rel="stylesheet" type="text/css" href="dropdown-check-list.1.4/src/ui.dropdownchecklist.standalone.css">  -->
+    <style>
+table td { vertical-align: top }
+dd { padding-bottom: 15px }
+    </style>
+    
+    <!-- Include the basic JQuery support (core and ui) -->
+    <script type="text/javascript" src="dropdown-check-list.1.4/src/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="dropdown-check-list.1.4/src/jquery-ui-1.8.13.custom.min.js"></script>
+    
+    <!-- Include the DropDownCheckList supoprt -->
+    <!-- <script type="text/javascript" src="dropdown-check-list.1.4/src/ui.dropdownchecklist.js"></script> -->
+    <script type="text/javascript" src="dropdown-check-list.1.4/js/ui.dropdownchecklist-1.4-min.js"></script>
+
+    <!-- Apply dropdown check list to the selected items  -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#s1").dropdownchecklist();
+        });
+
+        function test()
+        {
+		alert("Low has been selected!");
+        };
+
+    </script>
+
+</head>
+
+<body>
+
+<p id="LeTitle">Home Page</p>
+
+	        <select id="s1" title="ST layers" multiple="multiple">
+	            <option onclick="test()">Low</option>
+	            <option>Medium</option>
+	            <option>High</option>
+	        </select>
+
+<select title="Book">
+<option>Book 1</option>
+<option>Book 2</option>
+<option>Book 3</option>
+<option>...</option>
+
+<input type="button" onclick="goToPage()" value="Go to page!" />
+
+<img align="middle" id="mainDisplay" src="Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750">
+
+</body>
+</html>

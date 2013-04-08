@@ -1,0 +1,20 @@
+#!/bin/bash
+
+for i in {1..9}
+do
+
+convert -define jpeg:size=500x750  http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad00$i&w=1000   -thumbnail 90x100   -unsharp 0x.5  page$i.gif
+
+done
+
+for i in {10..99}
+do
+	
+convert -define jpeg:size=500x750  http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad0$i&w=1000    -thumbnail 90x100   -unsharp 0x.5  page$i.gif
+done
+
+for i in {100..233}
+do
+	
+convert -define jpeg:size=500x750  http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad$i&w=1000    -thumbnail 90x100   -unsharp 0x.5  page$i.gif
+done

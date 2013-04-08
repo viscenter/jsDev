@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="ChadStyle.css" media="screen" />
+<script type="text/javascript" language="Javascript" SRC="iPadSwipe.js"></script>
+<script type="text/javascript" language="Javascript" SRC="layers_checkbox.js"></script>
+<script type="text/javascript" language="Javascript" SRC="pageControl.js"></script>
+<script type="text/javascript" language="Javascript" SRC="buttons.js"></script>
+
+
+<script type="text/javascript">
+
+function myFunction()
+{
+var stress = "stress";
+//alert("Hello! I am an alert box!");
+alert(stress+stress);
+}
+
+/*function translate(elem)
+{
+   alert("In function");
+   var txt=document.getElementById("Translate");
+   if (elem.checked) //add layer 
+   { alert("it is checked");
+     txt.innerHTML = "<img align='middle' src='Home.png' alt='Computerman' width='500' height='750'>";
+   }
+   else //remove layer
+   { alert("it is not checked");
+     txt.innerHTML = "";
+   }
+};
+*/
+
+
+</script>
+
+
+<script src="query-1.8.3.js"></script>
+<script>
+
+
+
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#mainDisplay").fadeToggle();
+  });
+});
+</script>
+</head>
+<body>
+
+<p id="LeTitle">Chad Gospels .</p>
+
+<div id="GoToButtons">
+Go to page: <input type="text" name="fname" size="3" id="myPage">
+of book: <select id="Book" name="TheBook">
+             <option value="" disabled selected style="display:none;">Pick a book:</option>
+             <option value="Mark">Mark</option>
+             <option value="Matthew">Matthew</option>
+             <option value="Luke">Luke</option>
+         </select>
+      <input type="button" onclick="CheckIfNum()" value="Go to Page!" />
+</div>
+
+<div id="Buttons">
+
+</div>
+
+
+
+<br>
+
+<div id="swipeBox" ontouchstart="touchStart(event,'swipeBox');"  ontouchend="touchEnd(event);" ontouchmove="touchMove(event);" ontouchcancel="touchCancel(event);" style="position:relative;width:100%;height:100%;">
+
+   <img align="middle" id="mainDisplay" src="Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750">
+
+</div>
+
+<div class="TheLayers" id="Ilayer"></div> <!-- Can only have one I layer displayed at a time -->
+
+<div class="TheLayers" id="Translate"></div>
+<div class="TheLayers" id="Transcript"></div>
+<div class="TheLayers" id="Highlights"></div>
+
+<div id="PageNumber"></div>
+
+</body>
+</html>

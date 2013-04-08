@@ -1,0 +1,90 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Sortable - Connect lists</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css" />
+  <style>
+  #sortable1 { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px;}
+  #sortable2 { list-style-type: none; margin-top: 50px; padding: 0 0 2.5em; float: left; margin-right: 10px;}
+  #sortable1 li { margin: 0 5px 5px 5px; padding: 50px; font-size: 1.2em; width: 120px;}
+  /*change first number of margin to big number => a lot of spacing between items*/
+  /*increase second number => more spacing between first  list and second list */
+  /*for third number, same thing happens as with first number */
+  /*4th number, when increased, makes space between left side of screen and first list larger, but the two list are still together*/
+  /*padding changes size of the rectangles*/
+  #sortable2 li { display: inline; margin: 0 5px 5px 5px; padding: 50px; font-size: 1.2em; width: 120px; }
+  
+  #drop_layer
+  {
+    width:225px;
+    height: 900px;
+    padding:10px;
+    border:5px solid gray;
+    margin:10px;
+  }
+  
+  #select_layer
+  {
+    width:1500px;
+    height: 150px;
+    padding:10px;
+    border:5px solid gray;
+    margin:10px;
+  }
+  
+  </style>
+  
+  
+  <script>
+  $(function() {
+    $( "#sortable1" ).sortable({
+      items: "li:not(.ui-state-disabled)",
+      update: function() {        
+          var layers = $(this).sortable('toArray');
+          applyLayers(layers);
+      } 
+    });
+ 
+    $( "#sortable2" ).sortable({
+      cancel: ".ui-state-disabled"
+    });
+ 
+    $( "#sortable1, #sortable2" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+  });
+  
+  function applyLayers(layers)
+  { //call back end function to apply layer
+    alert(layers);
+  }
+  
+  </script>
+</head>
+<body>
+
+<div id="drop_layer">
+<ul id="sortable1" class="connectedSortable">
+  <li class="ui-state-default ui-state-disabled">Drop layers here!</li>
+  <li class="ui-state-default" id="original">original image</li>
+</ul>
+</div>  
+ 
+<div id="select_layer">  
+<ul id="sortable2" class="connectedSortable">
+  <li class="ui-state-default ui-state-disabled">Drag Layers!</li>
+  <li class="ui-state-highlight" id="Item1">Item 1</li>
+  <li class="ui-state-highlight" id="Item2">Item 2</li>
+  <li class="ui-state-highlight" id="Item3" style="background-image:url('https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT5dHq6ETspDzzd6SMVZwQ-obcRDaJzU-eU9CXDvCYof7R95K9I');">Item 3</li>
+  <li class="ui-state-highlight" id="Item4">Item 4</li>
+  <li class="ui-state-highlight" id="Item5">Item 5</li>
+</ul>
+</div>  
+ 
+</body>
+</html>

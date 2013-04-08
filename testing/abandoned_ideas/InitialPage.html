@@ -1,0 +1,50 @@
+<!DOCTYPE html> 
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="ChadStyle.css" media="screen" />
+<script type="text/javascript" language="Javascript" SRC="pageControl.js"></script>
+
+</head>
+
+<body>
+
+<p id="LeTitle">Home Page</p>
+
+<div id="InitialButtons">
+
+<select onclick="Pages()">
+   <option value="" disabled selected style="display:none;">Pick a page:</option>
+
+   <script type="text/javascript">
+
+      var txt=document.getElementById("pages");
+      var AmmountOfPages = 90;
+      var string="";  
+      for(var i=1; i<=AmmountOfPages; i++)
+      {
+        string = string + "\n<option value='" +i+ "'>" + i + "</option>";
+      }
+      document.write(string);
+
+   </script>
+
+</select>
+
+Type page number: <input type="text" name="fname" onchange="GoToPage(this)"><br>
+
+<select>
+   <option value="" disabled selected style="display:none;">Pick a book:</option>
+   <option>Book 1</option>
+   <option>Book 2</option>
+   <option>Book 3</option> lkdsjaflkaj
+</select>
+
+<input type="button" onclick="goToPage()" value="Go to page!" />
+
+</div>
+
+<img align="middle" id="mainDisplay" src="Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750">
+
+</body>
+</html>
