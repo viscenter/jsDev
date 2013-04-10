@@ -1,7 +1,12 @@
 
 //citeUrn object file
 
-//Constructor for citeUrn objects 
+//citeUrn
+//------------------------------
+//Constructor for citeUrn objects. This function build the object that can be used to access CITE data.
+//There is some simple type checking
+
+
 function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pageNumber, updateTargetID)
 {
 
@@ -28,7 +33,10 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
 
 
 
-
+   //buildUrl (helper)
+   //-------------
+   //This function updates the internal value of the url memeber variable
+   //
   this.buildUrl = buildUrl;
   function buildUrl()
   {
@@ -36,11 +44,14 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
    //http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad001&w=500";
   }
   
-  
+  //nextPage
+  //--------
+  //This function return the url for the next element in the CITE object
+  //If the page number is not at the max, It will incrament the page number.
   this.nextPage = nextPage;
   function nextPage()
   {
-    if(this.pageNumber != 233) //if not in the last page, proceed to go to next page
+    if(this.pageNumber < 233 ) //if not in the last page, proceed to go to next page
     {
           this.pageNumber = this.pageNumber +1 ;
           this.buildUrl();
@@ -48,16 +59,37 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
     return this.url;
   }
 
+    
+  //prevPage
+  //--------
+  //This function return the url for the previous element in the CITE object
+  //If the page number is not at the 1, It will incrament the page number.
+  
   this.prevPage = prevPage;
   function prevPage()
   {
-    if(this.pageNumber != 1) //if not in the first page, proceed to go to previous page
+    if(this.pageNumber > 1) //if not in the first page, proceed to go to previous page
     {
           this.pageNumber = this.pageNumber -1;
           this.buildUrl();
     }
     return this.url;
   }
+  
+  this.setPage = setPage;
+  function setPage( inPage)
+  { 
+	//if( inPage > minPage && inPage < maxPage)
+	if( inPage > 1 && inPage < 233 )
+		{
+			this.pageNumber = inPage;
+			this.buildUrl();
+		}
+  
+    return this.url;
+  }
+  
+  
 
   
   //generate the rest of the attributes

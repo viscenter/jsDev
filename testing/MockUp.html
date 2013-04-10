@@ -9,8 +9,8 @@
   <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
   <!--<link rel="stylesheet" href="/resources/demos/style.css" />-->
 
-  <script type="text/javascript" language="Javascript" SRC="http://infoforest.vis.uky.edu/InfoForest/jsDev/citeJB.js"></script>
-  <script type="text/javascript" language="Javascript" SRC="http://infoforest.vis.uky.edu/InfoForest/jsDev/cite_obj_interface2.js"></script>
+  <script type="text/javascript" language="Javascript" SRC="../citeJB.js"></script>
+  <script type="text/javascript" language="Javascript" SRC="../cite_obj_interface2.js"></script>
 
 
    <style type="text/css">
@@ -81,6 +81,9 @@
   <script type="text/javascript">
 
 	setUpObj();
+	setUpThumbNail();
+	browserCatch();
+
 
   </script>
 
@@ -146,8 +149,11 @@
 	
 	//change thumbnail as handle position changes
 	
-	$("#img_thumbnail").attr("src", "http://infoforest.vis.uky.edu/InfoForest/jsDev/thumbnails/ChadGT/page"+page_num+".gif"); //or could use: document.getElementById("img_thumbnail").src = "filename.gif";
-	 
+	//$("#img_thumbnail").attr("src", "http://infoforest.vis.uky.edu/InfoForest/jsDev/thumbnails/ChadGT/page"+page_num+".gif"); //or could use: document.getElementById("img_thumbnail").src = "filename.gif";
+		$("#img_thumbnail").attr("src", getThumNail(page_num));
+	//	$("#img_thumbnail").attr("src", getThumNail(page));
+	
+	//getThumNail(page_num);
 	$('#amount2').css( {
     		'position': 'absolute',
     		'top': theTop,   //worse problem
