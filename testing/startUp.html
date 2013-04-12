@@ -1,0 +1,22 @@
+function StartUp()
+{
+    //***create array that holds available layers for choosen manuscript***
+    
+    //***add thumbnails from available layers***
+
+    var txt = document.getElementById(“select_layer”) //LeLayers will be preexisting div in html
+
+    var string = '<ul id="sortable2" class="connectedSortable">'; //string will hold the code that will be added to the html div select_layer
+    string = string + "<li class='ui-state-default ui-state-disabled'>Drag Layers!</li>";
+
+    var imgurl = "";
+    
+    for(var i=0; i < AvaiLayer.length; i++)
+    {
+	string = string + '\n<li class="ui-state-default" id="' + AvaiLayer[i] + '" style="background-image:url(' + '"http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAIL' + AppLayer[i] + '.gif");"></li>';
+    }
+
+    string = string + '\n</ul>';
+    txt.innerHTML = string;
+    
+}

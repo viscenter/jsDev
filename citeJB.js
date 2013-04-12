@@ -75,7 +75,12 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
     }
     return this.url;
   }
-  
+ 
+
+  //setPage
+  //----------
+  //This function changes the page number member variable to the
+  //the incomming value. This function does some very simple type checking. 
   this.setPage = setPage;
   function setPage( inPage)
   { 
