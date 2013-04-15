@@ -1,5 +1,15 @@
+//citeJB.js
+//This file creates is able to create CITE Objects.
+//CITE objects are able to comunicate with standard cite servers
 
-//citeUrn object file
+//How to use this Object
+//A cite object must be constructed. If construction fails the object return false.
+//After construction, an object can fulfill the following methodes
+// nextPage
+// prevPage
+// setPage
+
+
 
 //citeUrn
 //------------------------------
@@ -7,7 +17,7 @@
 //There is some simple type checking
 
 
-function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pageNumber, updateTargetID)
+function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pageNumber, updateTargetID, maxPage)
 {
 
 
@@ -20,6 +30,7 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   if (typeof collectionID != 'string') alert("wrong type for collectionID");
   if (typeof defaultImageSize != 'string') alert("wrong type for defaultImageSize");
   if (typeof updateTargetID != 'string') alert("wrong type for updateTargetID");
+  if (typeof maxPage != "number") alert("wrong type for maxPage --> " + (typeof maxPage));
 
   //fill in the attributes for the object
   this.server = server;
@@ -30,7 +41,7 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   this.defaultImageSize = defaultImageSize;
   this.pageNumber = pageNumber;
   this.updateTargetID = updateTargetID;
-
+  this.maxPage = maxPage;
 
 
    //buildUrl (helper)
@@ -51,7 +62,7 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   this.nextPage = nextPage;
   function nextPage()
   {
-    if(this.pageNumber < 233 ) //if not in the last page, proceed to go to next page
+    if(this.pageNumber < this.maxPage ) //if not in the last page, proceed to go to next page
     {
           this.pageNumber = this.pageNumber +1 ;
           this.buildUrl();
@@ -85,7 +96,7 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   function setPage( inPage)
   { 
 	//if( inPage > minPage && inPage < maxPage)
-	if( inPage > 1 && inPage < 233 )
+	if( inPage > 1 && inPage < this.maxPage )
 		{
 			this.pageNumber = inPage;
 			this.buildUrl();
@@ -95,16 +106,41 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
   }
   
   
+  //getRegion
+  //---------------
+  //getRegion return a region of an image
+  //The region is specified by the 4 arguments
+  //The arguments are percents as floats, between 0 and 1. 
+  //The region returned is the area between the two input points
+  this.getRegion = getRegion;
+  function getRegion( startX,startY,stopX,stopY)
+  {
+  	this.buildUrl();
+	if(startX <=1 && startY <= 1 && stopY <=1 && stopX <=1)
+	{
+  		region = "http://" +this.server+this.dir+"?&request="+this.requestType+"&urn=urn:"+this.citeNS+":"+this.workID+":"+this.collectionID+pad(((this.pageNumber).toString()),3)+":" + startX + "," + startY + "," + stopX + "," + stopY;
+  		return region;
+  	}
+  	else
+  	{
+  		alert("Region was out of range");
+  		return this.url;
+  	}
+  }
+  
+  
 
   
   //generate the rest of the attributes
   this.isCreated =true;
   this.requestType = "GetBinaryImage";
   this.buildUrl();
-
+	
 
 
 }
+
+
 
 
 function pad(str,lenght)

@@ -1,4 +1,4 @@
-//cite management
+
 var chad_cite;
 
 
@@ -12,14 +12,15 @@ function setUpObj()
   "ChadRGB.Chad" ,                                    //set collection ID
   "1000",                                             //set default Image size
    1,                                                 //set start page
-   "updateTargetID" );                                //set the update target ID
+   "updateTargetID",								  //set the update target ID
+   	233 );                                			  //set MaxPage
 }
 
 
 function getPrev()
 {
  	// change the source for the main image
- 	document.getElementById("mainDisplay").src=chad_cite.prevPage();
+ 	document.getElementById("layer_original").src=chad_cite.prevPage();
 
 }
 
@@ -27,7 +28,7 @@ function getNextImage()
 {
 
  	// change the source for the main image
- 	document.getElementById("mainDisplay").src=chad_cite.nextPage();	
+ 	document.getElementById("layer_original").src=chad_cite.nextPage();	
 
 }
 
@@ -35,12 +36,7 @@ function getNextImage()
 function GoToPage(pageNum)
 {
 
-	document.getElementById("mainDisplay").src = chad_cite.setPage(pageNum);
-
- //  chad_cite.pageNumber = pageNum;
- //  chad_cite.buildUrl();
-
-  // document.getElementById("mainDisplay").src=chad_cite.url;
+	document.getElementById("layer_original").src = chad_cite.setPage(pageNum);
 
 }
 
@@ -54,7 +50,8 @@ function setUpThumbNail()
   "ChadRGB.Chad" ,                                    //set collection ID
   "70",                                             //set default Image size
    1,                                                 //set start page
-   "updateTargetID" );                                //set the update target ID
+   "updateTargetID",
+    233 );                                //set the update target ID
 }
 
 function getThumNail(page)
@@ -63,16 +60,21 @@ function getThumNail(page)
 	return  ThumbNail_cite.setPage(page);
 }
 
-function browserCatch()
-{
-	var i = 1
-	var wast;
-	while( i < 233)
-	{
-		wast = ThumbNail_cite.setPage(i);
-		i = i + 1;
-	}
 
+function getLayerUrl(theLayer, pageNum)
+{
+   /*chad_cite_layer.pageNumber = pageNum;
+   chad_cite_layer.layerName = theLayers;
+
+   chad_cite_layer.buildUrl();*/
+   
+   if(theLayer == "original")
+   {
+    return chad_cite.setPage(pageNum);
+   }
+   else  
+   {return "http://infoforest.vis.uky.edu/InfoForest/jsDev/testing/sample/Chad055_" + theLayer;}
 }
+
 
 
