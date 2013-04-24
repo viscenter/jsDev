@@ -8,6 +8,10 @@
 // nextPage
 // prevPage
 // setPage
+// getRegion
+
+//The methodes  above all return a string that is the source of an image.
+
 
 
 
