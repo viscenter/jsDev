@@ -1,7 +1,16 @@
+//cite_obj_interface2.js
+//This is an interface file between the visual front end and the back end 
+//The front makes function calls to this file, and this file calls the back end.
+//In  the future, this code will be inserted in to the front end, so the front end can directly call the back end.
+//In development this file was helpful.
 
+
+
+//setUpObj
+//----------------
+//This function creates an "citeUrn" object. This object provides the image for the Main display in the front end
+//The information to build the object is hard coded in this file. This in a non ideal solution.
 var chad_cite;
-
-
 function setUpObj()
 {
   var txt=document.getElementById("buildD");
@@ -17,6 +26,11 @@ function setUpObj()
 }
 
 
+//getPrev
+//-----------------
+//This function calls the back end object "citeUrn" member function prevPage.
+//Then this function finds the display image with the tag "layer_original", and changes the source
+//The one line of this function will in inserted into the front end code.
 function getPrev()
 {
  	// change the source for the main image
@@ -24,6 +38,11 @@ function getPrev()
 
 }
 
+//getNextImage
+//-----------------
+//This function calls the back end object "citeUrn" member function nextPage.
+//Then this function finds the display image with the tag "layer_original", and changes the source
+//The one line of this function will in inserted into the front end code.
 function getNextImage()
 {
 
@@ -33,6 +52,10 @@ function getNextImage()
 }
 
 
+//GoToPage
+//-----------------
+//This function calls the back end object "citeUrn" member function setPage.
+//Then this function finds the display image with the tag "layer_original", and changes the source
 function GoToPage(pageNum)
 {
 
@@ -40,6 +63,14 @@ function GoToPage(pageNum)
 
 }
 
+
+
+
+//setUpThumbNail
+//---------------------
+//setUpThumNail creates a "citeUrn" object for the sole goal of providing the front end with 
+//ThumbNails. Most of the setup information is the same as the first object, but the default Image size is much smaller
+//It is handy for navigating the images
 function setUpThumbNail()
 {
  
@@ -54,13 +85,22 @@ function setUpThumbNail()
     233 );                                //set the update target ID
 }
 
-function getThumNail(page)
+
+//getThumbNail
+//--------------------
+//This function returns the the value returned by the setPage.
+//We can only assume that the front end is setting the "src" of a element with this returned value.
+//The one line of this function will in inserted into the front end code.
+function getThumbNail(page)
 {
 	//document.getElementById("img_thumbnail").scr  = ThumbNail_cite.setPage(page);
 	return  ThumbNail_cite.setPage(page);
 }
 
-
+//getLayerUrl
+//--------------------
+//This is a stub. The front end uses this call to simulate layers
+//If the first input variable is equal to "original". It returns result of  setPage
 function getLayerUrl(theLayer, pageNum)
 {
    /*chad_cite_layer.pageNumber = pageNum;

@@ -146,11 +146,19 @@ function citeUrn(server,dir, citeNS, workID, collectionID ,defaultImageSize, pag
 
 
 
+//pad
+//--------------
+//Pad take a string and int 
+//Pad will add zeros to the front of a string until the string 
+//is the length of integer.
+//Example
+//result = pad('hello',10);
+//result now equals 00000hello
 
-function pad(str,lenght)
+function pad(str,length)
 {
 	var hold = str;
-	while((hold.length) < 3)
+	while((hold.length) < length)
 	{
 		hold = "0" + hold;
 	}
