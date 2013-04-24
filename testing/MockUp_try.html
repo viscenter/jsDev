@@ -152,7 +152,7 @@
     {
         imgurl = getLayerUrl(AppLayer[i]) //, pageNum);
 	
-	string = string + '\n<div><img id="layer_' + AppLayer[i] + '"src="' + imgurl + '" style="width:500px;height:750px;z-index:' + i + ';opacity:' + 1/(i+1) + ';" class="TheLayers"/></div>';
+	string = string + '\n<div><img id="layer_' + AppLayer[i] + '"src="' + imgurl + '" style="position:absolute;width:500px;height:750px;z-index:' + i + ';opacity:' + 1/(i+1) + ';" class="TheLayers"/></div>';
     }
 
     txt.innerHTML = string;
@@ -161,22 +161,15 @@
   
   //**********Fade In/Out through Layers***********
   
-  /*$("#playButton").click(
-  function() {
-    var i = 0, j = 0; 
-    var imgs = $('#LayerContainer ul').children();
-    runIt(imgs);
-
-    function runIt() {
-      $(imgs).eq(i).fadeIn(3000, function() {
-        setTimeout(runIt,'200');
-      });
-      i = i + 1; 
-      if (i == imgs.length) {
-        i = 0; $('#LayerContainer li').fadeOut(1000)
-      } 
+   function Fade()
+   {
+    var AppLayer = $("#sortable1").sortable('toArray');
+    
+    for(var i=0; i < AppLayer.length; i++)
+    {
+      $('#layer_' + AppLayer[i]).delay(500).fadeIn(500).delay(500).fadeOut(500);
     }
-  });*/
+   };
 
   //*********page slider***********
   
@@ -314,7 +307,7 @@
 
 <!-- play button -->
 
-<div id="playButton"> PLAY </div>
+<button type="button" onclick="Fade();">PLAY</button>
 
 <div id="DragLayers">
 
