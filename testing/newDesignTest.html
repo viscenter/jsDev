@@ -1,0 +1,80 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>jQuery UI Sortable - Default functionality</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  <style>
+  #sortable { list-style-type: none; margin-top: 500px; padding: 0 0 2.5em; float: left; margin-right: 10px; height:1000px; width: 2000px;}
+  #sortable li { display: inline; margin: 0 1px 0px 1px; padding: 50px; font-size: 1em; height: 100px; width: 100px;}
+  #LockIt{margin-top: 500px; margin-right: 150px;}
+  #options{height:50px; width:30px; background-color:"green";}
+  </style>
+    <style>
+  .custom-colorize {
+    font-size: 20px;
+    position: relative;
+    width: 75px;
+    height: 75px;
+    red: 255;
+    green: 0;
+    blue: 0;
+    
+  }
+    </style>
+  
+  <script>
+  locked = false;
+  $(function() {
+    $( "#sortable" ).sortable({
+      placeholder: 'placerholder',
+      containment: 'parent',
+      scroll: true,
+      //tolerance: "pointer"
+    });
+    $( "#sortable" ).disableSelection();
+  });
+  
+  function Lock() //haas to be javascript function. if jQuery function, then it'll run automatically.
+  {
+    if(!locked) //if not locked
+    {
+      //lock it
+      $("#sortable").sortable("disable");
+      locked = true; //now it's locked
+      document.getElementById("LockIt").innerHTML = "Unlock"; //next time, button will unlock
+    }
+    else // //if locked
+    {
+      //unlock it
+      $("#sortable").sortable("enable");
+      locked = false; //now it's not locked
+      document.getElementById("LockIt").innerHTML = "Lock"; //next time, button will lock
+    }
+  }
+  </script>
+</head>
+<body>
+ 
+<ul id="sortable">
+  <li id="original">original</li>
+  <li class="custom-colorize" id="1912">1912</li>
+  <li class="ui-state-default" id="1929">1929</li>
+  <li class="ui-state-default" id="1962">1962</li>
+  <li class="ui-state-default" id="2003">2003</li>
+  <li class="ui-state-default" id="2010">2010</li>
+  <li class="ui-state-default" id="3d">3d</li>
+  <li class="ui-state-default" id="highlight">highlight</li>
+  <li class="ui-state-default" id="latin">latin</li>
+  <li class="ui-state-default" id="multispectral">multispectral</li>
+  <li class="ui-state-default" id="verses">verses</li>
+  <li class="ui-state-default" id="words">words</li>
+</ul>
+ 
+<button type="button" id="LockIt" onclick="Lock();">Lock</button>
+ 
+</body>
+</html>
