@@ -1,29 +1,7 @@
 <html>
 <head>
-<script>
-//document.domain = 'file://localhost';
+<script type="text/javascript" language="Javascript" SRC="clean.html"></script>
 
-function bigger()
-{
-	count = 0;
-	listOfImages = window.frames['myFrame'].document.getElementsByName("SingleMainImage")
-	while(count >7)
-	{
-		listOfImages[count].width = listOfImages[count]*2;
-	}
-}
-
-function smaller()
-{
-	count = 0;
-	listOfImages = window.frames['myFrame'].document.getElementsByName("SingleMainImage")
-	while(count >7)
-	{
-		listOfImages[count].width = listOfImages[count]/2;
-	}
-}
-
-</script>
 </head>
 <body>
 <button onclick="bigger()">+</button>
@@ -34,6 +12,45 @@ function smaller()
 
 
 </body>
+
+<script>
+
+
+function bigger()
+{
+	k = window.frames['myFrame'].document.getElementById("imageDiv").alt
+	window.frames['myFrame'].document.getElementById("imageDiv").alt = k *2;
+	//alert("bigger");
+	count = 0;
+	listOfImages = window.frames['myFrame'].document.getElementsByName("SingleMainImage")
+	while(count < listOfImages.length)
+	{
+		listOfImages[count].width = listOfImages[count].width*2;
+		listOfImages[count].height = listOfImages[count].height*2;
+		count = count + 1
+	}
+}
+
+function smaller()
+{
+	k = window.frames['myFrame'].document.getElementById("imageDiv").alt
+	window.frames['myFrame'].document.getElementById("imageDiv").alt = k/2;
+
+	count = 0;
+	listOfImages = window.frames['myFrame'].document.getElementsByName("SingleMainImage")
+	while(count < listOfImages.length)
+	{
+		listOfImages[count].width = listOfImages[count].width/2;
+		listOfImages[count].height = listOfImages[count].height/2;
+		count = count + 1
+
+	}
+}
+
+
+
+
+</script>
 
 
 </html>

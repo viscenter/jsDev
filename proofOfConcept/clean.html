@@ -30,6 +30,11 @@
                                         //It's elements will always be a subset of the totalListOfImages
   
   
+
+imageSize = 1000;//This is bad form
+  			     //This value holds the state of the zoom for all images
+  					
+
   
   	
    layerNames = new Array();
@@ -97,6 +102,7 @@ The check boxes are below. They are VERY short term. They were relatively simple
 
  chad_cite_Layers.setPage(79);
  getlayers();
+ document.getElementById("imageDiv").alt = 1000;
 
 
 
@@ -167,6 +173,8 @@ function displayLayers()
 	counter = 0;
 	while(counter < currentListOfLayers.length)
 	{
+		currentListOfLayers[counter].width = document.getElementById("imageDiv").alt;
+		currentListOfLayers[counter].height = document.getElementById("imageDiv").alt;
 		currentListOfLayers[counter].style.opacity = 1.0/currentListOfLayers.length;
 		(document.getElementById("imageDiv")).appendChild(currentListOfLayers[counter]);
 		counter = counter + 1;
@@ -207,6 +215,7 @@ function getlayers()
 	}
 
 }
+
 
 </script>
 
