@@ -2,9 +2,38 @@
 <head>
 <script>
 //document.domain = 'file://localhost';
+
+function bigger()
+{
+	count = 0;
+	listOfImages = window.frames['myFrame'].document.getElementsByName("SingleMainImage")
+	while(count >7)
+	{
+		listOfImages[count].width = listOfImages[count]*2;
+	}
+}
+
+function smaller()
+{
+	count = 0;
+	listOfImages = window.frames['myFrame'].document.getElementsByName("SingleMainImage")
+	while(count >7)
+	{
+		listOfImages[count].width = listOfImages[count]/2;
+	}
+}
+
 </script>
 </head>
 <body>
+<button onclick="bigger()">+</button>
+<button onclick="smaller()">-</button>
+
+
 <iframe id="myFrame" width="1000px" height="1000px" src="clean.html"></iframe>
+
+
 </body>
+
+
 </html>
