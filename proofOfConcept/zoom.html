@@ -1,0 +1,89 @@
+<html>
+
+<head>
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+</head>
+
+<style>
+#draggable 
+{
+    position:absolute;
+}
+
+#games
+{
+	position:absolute
+	top:0
+	left:0
+
+}
+
+
+</style>
+
+<body>
+	<div id="containment-wrapper" width="95%" height="95%" position="relative" >
+		<img  id="draggable" src="../Chad002.jpg" width="255" height="255"  align="left" zindex:1  posistion="absolute">
+	</div>
+
+	<div id="games" posistion="absolute" top="0" left="0">
+	<div  osistion="absolute" top="0" left="0">
+		<button id="games" onclick="bigger()" posistion="absolute" top="0" left="0 ">Bigger</button>
+		<button id="games" onclick="smaller()" posistion="absolute" top="0" left="0">Smaller</button>
+	</div>
+	</div>
+
+
+
+this is neat.
+</body>
+
+
+
+	<script>
+    	function bigger()
+    	{
+    		test = document.getElementById("draggable")
+    		test.width = test.width*2
+    		test.height = test.height*2
+    		
+    		edge = document.getElementById("containment-wrapper")
+    		edge.width = edge.width*2
+    		edge.height = edge.height*2
+    		
+    	}
+    
+    	function smaller()
+    	{
+    		test = document.getElementById("draggable")
+  	    	test.width = test.width/2
+    		test.height = test.height/2
+    		
+    		edge = document.getElementById("containment-wrapper")
+    		edge.width = edge.width/2
+    		edge.height = edge.height/2
+
+    	}
+
+		//var image = new Image();
+		//var test
+		//test = document.getElementById("PageLocationID")
+		//test.src="../chad_cover.gif"
+	</script>
+	
+	<script>
+	$(function()
+	{
+	
+		$("#draggable").draggable({	 containment: "#containment-wrapper", scroll: false});
+		
+	});
+	
+	$( "#games" ).draggable({ revert: true });
+	
+</script>
+
+</html>
+	
+</html>

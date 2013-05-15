@@ -1,0 +1,222 @@
+
+<html>
+<head>
+  <!-- 
+  Including jquery libraries. Later in this page jquery in used
+  NOTE, before we distribute this we should have locale copies for both jquery files
+  -->
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+
+
+  <!--
+  Including the CITE object file and the helper file.
+  The helper file "./cite_obj_interface2.js" can be inlinned into this file later
+  -->
+  <script type="text/javascript" language="Javascript" SRC="./citeJB.js"></script>
+  <script type="text/javascript" language="Javascript" SRC="./cite_obj_interface2.js"></script>
+
+
+  <script type="text/javascript">
+
+	setUpObj_Layers();      //Running the helper function to set up the CITE objects
+	setUpThumbNail();//Same as above for smaller images
+	
+	totalListOfLayers = new Array(); //We only create this once and keep this array till the end
+	                                 //It will hold a max of 5 images for our uses
+     
+    currentListOfLayers = new Array(); //We only create this once and keep this array till the end
+                                        //This is holds the images that we are currently viewing. 
+                                        //It's elements will always be a subset of the totalListOfImages
+  
+  
+  
+  	
+   layerNames = new Array();
+   //The layerNames array allows us to use numbers when building the layers 
+   //(I had difficulty with javascript enum)
+   layerNames[0] = "ChadPOC.Chad-Latin-";
+   layerNames[1] = "ChadPOC.Chad-Multispectral1-";
+   layerNames[2] = "ChadPOC.Chad-English-";
+   layerNames[3] = "ChadPOC.Chad-Background-";
+   layerNames[4] = "ChadPOC.Chad-2003-";
+   layerNames[5] = "ChadPOC.Chad-1962-";
+   layerNames[6] = "ChadPOC.Chad-1929-";
+
+
+  </script>
+
+</head>
+
+<!--
+The Style tag below allows us to set things to the style called draggable.
+Later we will give very special abilities to the draggable style  
+-->
+<style>
+	#draggable 
+	{
+    	position:absolute;
+    	zIndex:1;
+	}
+</style>
+
+
+<body>
+
+<form>
+<!--
+The check boxes are below. They are VERY short term. They were relatively simple to setup and test with
+-->
+<input name="box" id="Check_ChadPOC.Chad-Latin-" type="checkbox" onclick="updateLayers(0)" />
+<input name="box" id="Check_ChadPOC.Chad-Multispectral1-" type="checkbox" onclick="updateLayers(1)" />
+<input name="box" id="Check_ChadPOC.Chad-English-" type="checkbox" onclick="updateLayers(2)" />
+<input name="box" id="Check_ChadPOC.Chad-Background-" type="checkbox" onclick="updateLayers(3)" />
+<input name="box" id="Check_ChadPOC.Chad-2003-" type="checkbox" onclick="updateLayers(4)" />
+<input name="box" id="Check_ChadPOC.Chad-1962-" type="checkbox" onclick="updateLayers(5)" />
+<input name="box" id="Check_ChadPOC.Chad-1929-" type="checkbox" onclick="updateLayers(6)" />
+</form>
+
+<div id="buttonsAndImageDiv">
+	<!--
+	The simple buttoms are below they are also short term
+	-->
+	<div id="buttons">
+	<button id="prev" onclick="prev()"  height="3%" width="3%"  align="left" zIndex="2">previous</button>
+	<button id="next" onclick="next()"  height="3%" width="3%" align="right">next</button>
+	</div>
+	<!--
+	The goal is to append iamges to the imageDiv. I plan to have an array that appends 
+	all the images it contains to to this div
+	-->
+	<div id="draggable">
+	<div id="imageDiv"> </div> 
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+
+ chad_cite_Layers.setPage(79);
+ getlayers();
+
+
+
+//updateLayers()
+//--------------
+//This function is called when the check boxes are changed.
+//The array called currentListOfLayers is generated here.
+
+function updateLayers(layerValue)
+{
+	console.log("The layer called "+ layerNames[layerValue]+ " is being updated")
+	if(((document.getElementById("Check_"+ layerNames[layerValue])).checked) === true)
+	{
+	 	currentListOfLayers.push(totalListOfLayers[layerValue])
+	 //	alert("set to true");
+	}
+	else{
+		//alert("set to false");
+		i = 0;
+		while(i < currentListOfLayers.length)
+		{
+		//	console.log(totalListOfLayers[layerValue].id + "  " + currentListOfLayers[i].id);		
+			if( totalListOfLayers[layerValue].id == currentListOfLayers[i].id)
+			{
+				currentListOfLayers[i]= currentListOfLayers[currentListOfLayers.length - 1];
+				//currentListOfLayers[currentListOfLayers.lenght - 1] = currentListOfLayers[i];
+				currentListOfLayers.pop()
+				
+			}
+			i = i + 1;
+		}
+	}
+	displayLayers();
+	
+}
+
+
+
+function prev()
+{ 
+	chad_cite_Layers.prevPage();
+    getlayers();
+    displayLayers()
+}
+
+function next()
+{
+	chad_cite_Layers.nextPage();
+    getlayers();
+    displayLayers()
+
+}
+
+
+//display(layerValue)
+//-----------------------
+//This function displays the images that are in the currentListOfLayers.
+//To do this it removes all images that were being displayed and then, iterates 
+//the currentListOfLayers array.
+function displayLayers()
+{
+	
+	while(document.getElementById("imageDiv").hasChildNodes() === true)
+	{
+	document.getElementById("imageDiv").removeChild(document.getElementById("imageDiv").childNodes[0]);
+	}
+
+	counter = 0;
+	while(counter < currentListOfLayers.length)
+	{
+		currentListOfLayers[counter].style.opacity = 1.0/currentListOfLayers.length;
+		(document.getElementById("imageDiv")).appendChild(currentListOfLayers[counter]);
+		counter = counter + 1;
+	}
+
+}
+
+
+
+//getLayers()
+//-------------
+//GetLayers uses the cite object called chad_cite_Layers, to 
+//generate a an array of all the layers called totalListOfLayers.
+//This could lead to great load times.
+function getlayers()
+{
+	counter = 0;
+	totalListOfLayers = [];
+	
+	while(counter < 7)
+	{
+		if(totalListOfLayers[counter] != undefined)
+		{
+			delete totalListOfLayer[counter];
+			alert("delete");
+		}
+		temp = new Image();
+		chad_cite_Layers.setLayer(layerNames[counter]);
+	    temp.src = chad_cite_Layers.update();
+	    temp.height = 1000;
+	    temp.width = 1000;
+	    temp.id = layerNames[counter];
+	    temp.style.position = 'absolute'
+		totalListOfLayers.push(temp);   
+		//alert("hello");
+		counter = counter + 1;
+	}
+
+}
+
+</script>
+
+<script>
+//I am opening a second script tag to keep space between the jqury and the javascript
+//This space is for the jqury
+	$("#draggable").draggable({	 scroll: false});
+	$('buttons').css('z-index', '1000');
+
+
+</script>
+
+
+</html>
