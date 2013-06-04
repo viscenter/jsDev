@@ -1,0 +1,341 @@
+
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Mock Up</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  <!--<link rel="stylesheet" href="/resources/demos/style.css" />-->
+
+  <script type="text/javascript" language="Javascript" SRC="./citeJB.js"></script>
+  <script type="text/javascript" language="Javascript" SRC="./cite_obj_interface2.js"></script>
+
+
+   <style type="text/css">
+
+    #sortable1 { list-style-type: none; margin: 0; padding: 0 0 2.5em; float: left; margin-right: 10px;}
+    #sortable2 { list-style-type: none; margin-top: 50px; padding: 0 0 2.5em; float: left; margin-right: 10px;}
+    
+    #sortable1 li { margin: 0 5px 5px 5px; padding: 80px 10px 80px 10px; font-size: 1.2em; width: 120px;}
+    #sortable2 li { display: inline; margin: 0 5px 5px 5px; padding: 50px; font-size: 1.2em; width: 120px; }
+  
+    #drop_layer
+    {
+      width: 200px;
+      height: 900px;
+      padding:10px;
+      border:5px solid gray;
+      margin:10px;
+      margin-top:700px; /*had to change so that image would be displayed in the middle...*/
+      overflow-y:scroll;
+      background-color:gray;
+    }
+  
+    #select_layer
+    {
+      width:1200px;
+      height: 150px;
+      padding:10px;
+      border:5px solid gray;
+      margin:10px;
+      overflow-x:scroll;
+      background-color:gray;
+    }
+
+    #slider { width: 500px;}
+
+    html,body
+    { 
+	margin:0; 
+	padding:0; 
+	height:100%; 
+	width:100%; 
+	background-color: black;
+    }
+    
+    #img_thumbnail
+    {
+      width: 68px;
+      height: 100px;
+    }
+    
+    #prev
+    {
+      margin-top: 400px;
+      float: left;
+    }
+    
+    #next
+    {
+      margin-top: 400px;
+      float: right;
+    }
+    
+    #pageAndSlider /*need this css for transparency too*/
+    {
+      margin-top: 200px;
+      margin-left: 500px;
+      position:relative;
+    }
+    
+    #LayerContainer
+    { 
+      position: relative;
+      display: block; 
+      margin-left: auto; 
+      margin-right: auto;
+    }
+    
+    .TheLayers       /*important code for transparency*/
+    {
+      position:absolute; /*need it to be absolute so that images will overlap*/
+    }
+    
+    #DragLayers
+    {
+      margin-top: -800px;
+      margin-left: 200px; 
+    }
+
+  </style>
+
+  <script type="text/javascript">
+
+	setUpObj();
+	setUpThumbNail();
+
+  </script>
+
+  <script>
+    
+  //***********drag and drop layers**************
+
+  $(function() {
+    $( "#sortable1" ).sortable({
+      items: "li:not(.ui-state-disabled)",
+      update: function() {        
+          var layers = $(this).sortable('toArray');
+	  pageNum = document.getElementById('amount2');
+	  pageNum = pageNum.value;
+          applyLayers(layers, pageNum);
+      } 
+    });
+ 
+    $( "#sortable2" ).sortable({
+      cancel: ".ui-state-disabled"
+    });
+ 
+    $( "#sortable1, #sortable2" ).sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+  });
+  
+  //***********Apply Layers************
+  
+  function applyLayers(AppLayer) //, pageNum)
+  { //call back end function to apply layer
+    //alert(layers);
+    
+    //AppLayer will be an array that has the layers that are currently on the drop layer 
+    //rectangle
+
+    var txt = document.getElementById("LayerContainer") //LayerContainer will be preexisting div in html
+
+    var string = ''; //string will hold the code that will be added to the html div LayerContainer
+
+    var imgurl = '';
+    
+    for(var i=0; i < AppLayer.length; i++)
+    {
+        imgurl = getLayerUrl(AppLayer[i]) //, pageNum);
+	
+	string = string + '\n<div><img id="layer_' + AppLayer[i] + '"src="' + imgurl + '" style="position:absolute;width:500px;height:750px;z-index:' + i + ';opacity:' + 1/(i+1) + ';" class="TheLayers"/></div>';
+    }
+
+    txt.innerHTML = string;
+
+  }
+  
+  //**********Fade In/Out through Layers***********
+  
+   function Fade()
+   {
+    var AppLayer = $("#sortable1").sortable('toArray');
+    
+    for(var i=0; i < AppLayer.length; i++)
+    {
+      $('#layer_' + AppLayer[i]).delay(500).fadeIn(500).delay(500).fadeOut(500);
+    }
+   };
+
+  //*********page slider***********
+  
+  mouseDown = 0;
+
+  $(function() {
+    $( "#slider" ).slider({
+      value:1,
+      min: 1,
+      max: 300,
+      step: 1,
+      slide: function( event, ui ) {
+        $( "#amount2" ).val( ui.value );
+	 document.getElementById('amount2').innerHTML = ui.value;
+	 page_num = ui.value;
+        
+	 //to get position of sliding thing
+
+        x=$("a.ui-slider-handle").position();
+       
+	 theTop = x.top;
+	 theLeft = x.left;
+
+	 y = $("#slider").position();
+	 
+	 thumbnail_Top = theTop + y.top - 100 + "px"; //above amount2
+	 thumbnail_Left = theLeft + y.left - 25 + "px"; //more to the left
+	 
+	 theTop = theTop + y.top + "px";
+	 theLeft = theLeft + y.left + "px";
+
+	$('#thumbnail').css( {
+    		'position': 'absolute',
+    		'top': thumbnail_Top,   //worse problem
+   		'left': thumbnail_Left, //worse problem
+		'z-index': 1000
+	});
+	
+	//change thumbnail as handle position changes
+	
+	//$("#img_thumbnail").attr("src", "http://amphoreus.hpcc.uh.edu/tomcat/chsimg/Img?&request=GetBinaryImage&urn=urn:cite:fufolioimg:ChadRGB.Chad"+page_num+"&w=500"); //or could use: document.getElementById("img_thumbnail").src = "filename.gif";
+	//putThumbnail(page_num); 
+	$("#img_thumbnail").attr("src",getThumbNail(page_num));
+//	GoToPage(page_num);
+	$('#amount2').css( {
+    		'position': 'absolute',
+    		'top': theTop,   //worse problem
+   		'left': theLeft, //worse problem
+		'z-index': 1000,
+		'font-size': 12,
+		'text-align': 'center'
+	});
+
+	
+
+        //document.getElementById('positioning').innerHTML = "Top: " + theTop + " Left: " + theLeft ;
+
+      }
+    });
+    //$( "#amount" ).val( $( "#slider" ).slider( "value" ) );
+    $( "#amount2" ).val( $( "#slider" ).slider( "value" ) );
+
+    //x=$("#slider").position();  
+    //document.getElementById('positioning').innerHTML = "Top: " + x.top + " Left: " + x.left ;
+
+  });
+  
+  function checkMouseUp()
+  {
+	if(mouseDown == 1)
+	{
+		changeFlag(0);
+		
+		// get array of layers, page number, and call applyLayers()
+		
+		var layers = $("#sortable1").sortable('toArray');
+		pageNum = document.getElementById('amount2');
+	        pageNum = pageNum.value;
+		
+		applyLayers(layers, pageNum);
+		
+		GoToPage(Number(amount2.value));
+		
+	}
+  }
+
+  function changeFlag(value)
+  {
+	mouseDown = value;
+  }
+
+  </script>
+</head>
+<body onmouseup="checkMouseUp();"> <!-- <body onload="StartUp()"> -->
+
+<!-- previous and next arrows -->
+
+<div id="TheTitle" style="color:white; text-align:center; font-size: 90px"> Chad Gospels </div>
+<hr>
+<div id="TheYear" style="color:white; text-align:center;"> 1257 </div>
+
+<input type="image" id="prev" src="http://3219a2.medialib.glogster.com/media/d2/d2a13373c0dc5af811bd246719f464c3740c0e7a80913917336d9fd6f58c44d1/13417280.gif" alt="previous" height="100px" width="100px" onclick="getPrev();">
+  
+<input type="image" id="next" src="http://dolphin-browser.com/wp-content/uploads/2012/08/rightArrow.gif" alt="next" height="100px" width="100px" onclick="getNextImage();">
+
+<!-- page slider ahead -->
+
+<div id="pageAndSlider">
+
+  <!-- display thumbnail on top of slider handle-->
+
+  <div id="thumbnail">
+    <img  id="img_thumbnail" src="http://infoforest.vis.uky.edu/InfoForest/jsDev/Chad_Cover_Image.jpg">
+  </div>
+
+  <!-- display on slider handle the page number -->
+  
+  <div id="amount2"></div>
+
+  <div id="slider" onmousedown="changeFlag(1);"></div>
+
+  <div id="target"></div>
+
+  <!-- display original image -->
+  
+  <div id="LayerContainer">
+      <div><img  id="layer_original" src="http://infoforest.vis.uky.edu/InfoForest/jsDev/Chad_Cover_Image.jpg" alt="Computerman" width="500" height="750" class="TheLayers"></div>
+  </div>
+
+  <!-- div for displaying layers -->
+
+</div>
+
+<!-- sortable lists ahead -->
+
+<!-- play button -->
+
+<button type="button" onclick="Fade();">PLAY</button>
+
+<div id="DragLayers">
+
+<div id="drop_layer">
+<ul id="sortable1" class="connectedSortable">
+  <li class="ui-state-default ui-state-disabled">Drop layers here!</li>
+  <li class="ui-state-default" id="original">original image</li>
+</ul>
+</div>  
+ 
+<div id="select_layer">  
+<ul id="sortable2" class="connectedSortable">
+  <li class="ui-state-default ui-state-disabled">Drag Layers!</li>
+  <li class="ui-state-default" id="1912" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAIL1912.gif');"></li>
+  <li class="ui-state-default" id="1929" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAIL1929.gif');"></li>
+  <li class="ui-state-default" id="1962" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAIL1962.gif');"></li>
+  <li class="ui-state-default" id="2003" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAIL2003.gif');"></li>
+  <li class="ui-state-default" id="2010" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAIL2010.gif');"></li>
+  <li class="ui-state-default" id="3d" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAIL3d.gif');"></li>
+  <li class="ui-state-default" id="highlight" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAILhighlight.gif');"></li>
+  <li class="ui-state-default" id="latin" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAILlatin.gif');"></li>
+  <li class="ui-state-default" id="multispectral" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAILmultispectral.gif');"></li>
+  <li class="ui-state-default" id="verses" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAILverses.gif');"></li>
+  <li class="ui-state-default" id="words" style="background-image:url('http://infoforest.vis.uky.edu/InfoForest/jsDev/layer_thumbnails/THUMBNAILwords.gif');"></li>
+</ul>
+</div>
+
+</div>
+
+</body>
+</html>

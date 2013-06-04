@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <!--
+  Including the CITE object file and the helper file.
+  The helper file "./cite_obj_interface2.js" can be inlinned into this file later
+  -->
+  <script type="text/javascript" language="Javascript" SRC="./citeJB.js"></script>
+  <script type="text/javascript" language="Javascript" SRC="./cite_obj_interface2.js"></script>
+
+<!---
+The below will run before the page is loaded
+-->
+<script>
+
+	setUpObj_Layers();      //Running the helper function to set up the CITE objects
+	setUpThumbNail();//Same as above for smaller images
+	
+	totalListOfLayers = new Array(); //We only create this once and keep this array till the end
+	                                 //It will hold a max of 5 images for our uses
+     
+    currentListOfLayers = new Array(); //We only create this once and keep this array till the end
+                                        //This is holds the images that we are currently viewing. 
+                                        //It's elements will always be a subset of the totalListOfImages
+  
+  
+
+	imageSize = 750;//This is bad form
+  			     //This value holds the state of the zoom for all images
+  					
+
+  
+  	
+   var layers = {
+   "ChadRGB.Chad":0,
+   "ChadPOC.Chad-Multispectral1-":1,
+   "ChadPOC.Chad-Background-":2,
+   "ChadPOC.Chad-Latin-":3,
+   "ChadPOC.Chad-English-":4,
+   "ChadPOC.Chad-2003-":5,
+   "ChadPOC.Chad-1962-":6,
+   "ChadPOC.Chad-1929-":7
+   }
+   
+
+</script>
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>InfoForest</title>
+<link href="css/demo_styles.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body onload="upDateThumb()">
+
+	<div id="wrapper_MAIN">
+    
+    	<div id="wrapper_TOP">
+        	<div id="top_home"><a href="#"><img src="assets/layout/home.png" width="75" height="50" alt="About" /></a></div>
+        	
+            <div id="top_about">
+        	  <p><a href="#">About</a></p>
+        	</div>
+            
+            <div id="top_title">
+       	    	<h1>Chad Gospels</h1>
+       	    </div>
+                        
+   	  	  <div id="top_infoforest">
+       	    	<p><a href="#">InfoForest</a></p>
+       	  	</div>
+		</div>
+        
+        <div id="wrapper_THUMBS">
+        	
+            <div class="thumb"  id="Check_ChadRGB.Chad"  onclick="updateLayers(this)"  layerNum="0" checked="true"><img src="assets/page_thumbs/Chad-077-1929.jpg" width="75" height="100" class="thumb_img" /> </div>
+            <div class="thumb"  id="Check_ChadPOC.Chad-Multispectral1-" onclick="updateLayers(this)" layerNum="1" checked="true"> <img src="assets/page_thumbs/Chad-077-1962.jpg" width="75" height="100" class="thumb_img"  /></div>
+            <div class="thumb" id="Check_ChadPOC.Chad-Background-" onclick="updateLayers(this)" layerNum="2"checked="true"><img src="assets/page_thumbs/Chad-077-2003.jpg" width="75" height="100" class="thumb_img"  /></div>
+            <div class="thumb" id="Check_ChadPOC.Chad-Latin-" onclick="updateLayers(this)" layerNum="3"checked="true"><img src="assets/page_thumbs/Chad-077-2012.jpg" width="75" height="100" class="thumb_img" /></div>
+            <div class="thumb" id="Check_ChadPOC.Chad-English-" onclick="updateLayers(this)"layerNum="4"checked="true"><img src="assets/page_thumbs/Chad-077-f-m-median-heq.jpg" width="75" height="100" class="thumb_img" /></div>
+            <div class="thumb_SELECTED" id="Check_ChadPOC.Chad-2003-" onclick="updateLayers(this)" layerNum="5" checked="true" ><img src="assets/page_thumbs/Chad-077-f-m-max-heq.jpg" width="75" height="100" class="thumb_img" /></div>
+            <div class="thumb" id="Check_ChadPOC.Chad-1962-" onclick="updateLayers(this)" layerNum="6" checked="true"><img src="assets/page_thumbs/Chad-077-f-m-mean-heq.jpg" width="75" height="100" class="thumb_img"  /> </div>
+            <div class="thumb" id="Check_ChadPOC.Chad-1929-" onclick="updateLayers(this)" layerNum="7" checked="true"><img src="assets/page_thumbs/Chad-077-f-m-median-heq.jpg" width="75" height="100" class="thumb_img" /></div>
+            
+      </div>
+      
+      <!--<div id="page_selector_WRAPPER"><img src="assets/layout/page_navigation.png" width="1000" height="50" /></div> -->
+      
+       <div id="page_viewer_WRAPPER"> 
+    	<iframe  frameBorder="0" align="justify" id="myFrame" width="750px" height="750px" src="clean2.html"></iframe> <!--  <img src="assets/page_large/Chad-077-f-m-max-heq.jpg" width="900" height="1200" class="center" /> -->
+        
+            <img src="assets/layout/zoom.png" alt="HTML Map" border="0" usemap="#zoomMap"/>
+        </div>
+
+    
+    
+    </div>
+
+
+
+
+<map name="zoomMap">
+
+   <area shape="rect" 
+            coords="0,0,20,20"
+     		alt="Bigger?" 
+            onclick ="bigger()"/>
+
+   <area shape="rect" 
+            coords="0,180,20,200"
+             alt="Smaller?" 
+            onclick ="smaller()"/>;
+</map>
+
+
+
+<script>
+
+
+ chad_cite_Layers.setPage(79);
+ getlayers();
+
+setThumb()
+
+
+function prev()
+{ 
+	chad_cite_Layers.prevPage();
+    getlayers();
+   // displayLayers();
+}
+
+function next()
+{
+	chad_cite_Layers.nextPage();
+    //for( var i=0; i<totalListOfLayers.length;i++)
+   // {
+    //	totalListOfLayers[i].onload = displayLayers();				
+    //	alert(i + " onload");							
+    //}
+    getlayers();
+    //displayLayers()
+}
+
+//bigger()
+//---------
+//Bigger is called when the button with the "+" is clicked.
+//Bigger sets the "imageSize" then has the images redrawn
+function bigger()
+{
+
+	
+	var y = window.frames['myFrame'].document.getElementById("draggable").style.top;
+	var x = window.frames['myFrame'].document.getElementById("draggable").style.left;
+	window.frames['myFrame'].document.getElementById("draggable").style.left = parseInt(x,0) - (( (3.0/2.0)*(imageSize)  - imageSize)/2)  ;//parseInt(x,0) - ((2.0/3.0)*(imageSize/4) )/2;
+	window.frames['myFrame'].document.getElementById("draggable").style.top  = parseInt(y,0) - (( (3.0/2.0)*(imageSize)  - imageSize)/2)
+	
+	imageSize = (imageSize*3)/2;
+	displayLayers();
+}
+
+
+//smaller()
+//---------
+//Smaller is called when the button with the "-" is clicked.
+//Bigger sets the "imageSize" then has the images redrawn
+function smaller()
+{
+	var y = window.frames['myFrame'].document.getElementById("draggable").style.top;
+	var x = window.frames['myFrame'].document.getElementById("draggable").style.left;
+	window.frames['myFrame'].document.getElementById("draggable").style.left = parseInt(x,0) - (( (2.0/3.0)*(imageSize)  - imageSize)/2)  ;//parseInt(x,0) - ((2.0/3.0)*(imageSize/4) )/2;
+	window.frames['myFrame'].document.getElementById("draggable").style.top  = parseInt(y,0) - (( (2.0/3.0)*(imageSize)  - imageSize)/2)
+	imageSize = 2*(imageSize/3);
+	displayLayers();
+}
+
+//getLayers()
+//-------------
+//GetLayers uses the cite object called chad_cite_Layers, to 
+//generate a an array of all the layers called totalListOfLayers.
+//This could lead to great load times.
+function getlayers()
+{
+	var counter = 0;
+	while(counter < 8)
+	{
+		if(totalListOfLayers[counter] != undefined)
+		{
+			delete totalListOfLayers[counter];
+			//alert("delete"); //works now
+		}
+		counter = counter + 1;
+	}
+	
+	
+	totalListOfLayers = [];
+
+	for (name in layers)
+	{
+		temp = new Image();
+		//chad_cite_Layers.setLayer(layerNames[counter]);
+		chad_cite_Layers.setLayer(name);
+		//temp.onload = frustration;
+	    temp.src = chad_cite_Layers.update();
+	    temp.height = imageSize;
+	    temp.width = imageSize;
+	    temp.name ="SingleMainImage";
+	    //temp.id = layerNames[counter];
+	    temp.id = name;
+	    temp.style.position = 'absolute'
+		totalListOfLayers.push(temp);   
+		//alert("hello");
+	}
+	
+	
+	while(document.getElementById("myFrame").contentDocument.getElementById("imageDiv").hasChildNodes() == true)
+	{
+		document.getElementById("myFrame").contentDocument.getElementById("imageDiv").removeChild(getElementById("myFrame").contentDocument.getElementById("imageDiv").childNodes[0]);
+	}
+		//while(window.frames['myFrame'].document.getElementById("imageDiv").hasChildNodes() == true)
+	//{
+	//	window.frames['myFrame'].document.getElementById("imageDiv").removeChild(window.frames['myFrame'].document.getElementById("imageDiv").childNodes[0]);
+	//}
+	
+}
+
+
+
+//displayLayers()
+//-----------------------
+//This function displays the images that are in the currentListOfLayers.
+//To do this it removes all images that were being displayed and then, iterates 
+//the currentListOfLayers array.
+function displayLayers()
+{
+	
+	
+	while(document.getElementById("myFrame").contentDocument.getElementById("imageDiv").hasChildNodes() == true)
+	{
+		document.getElementById("myFrame").contentDocument.getElementById("imageDiv").removeChild(document.getElementById("myFrame").contentDocument.getElementById("imageDiv").childNodes[0]);
+	}
+	
+	//while(window.frames['myFrame'].document.getElementById("imageDiv").hasChildNodes() == true)
+	//{
+	//	window.frames['myFrame'].document.getElementById("imageDiv").removeChild(window.frames['myFrame'].document.getElementById("imageDiv").childNodes[0]);
+	//}
+
+	var counter = 0;
+	while(counter < currentListOfLayers.length)
+	{
+		currentListOfLayers[counter].align="center";
+		currentListOfLayers[counter].width =  imageSize;
+		currentListOfLayers[counter].height = imageSize; 
+		currentListOfLayers[counter].style.opacity = 1.0/currentListOfLayers.length;
+		//(window.frames['myFrame'].document.getElementById("imageDiv")).appendChild(currentListOfLayers[counter]);
+		document.getElementById("myFrame").contentDocument.getElementById("imageDiv").appendChild(currentListOfLayers[counter]);
+		counter = counter + 1;
+	}
+	
+}
+
+
+//function frustration()
+//{
+//	
+//	currentListOfLayers = [];
+//	for(var i = 0; i < totalListOfLayers.length; i++)
+//	{
+//		updateLayers(i);
+//	}
+//	displayLayers();
+//}
+
+//imageLoaded(layerIndex)
+//------------
+//This is the code that will run after an image has fully loaded
+//function imageLoaded( layerIndex)
+//{
+//  var counter =  0;
+// while(counter  < currentListOfLayers.length)
+//	{
+//		if(currentListOfLayer[counter].id == layerNames[layerIndex])  //if this is true, then the Image that was just loaded needs to be displayed
+//		{
+//		listOfChildren = window.frames['myFrame'].document.getElementById("imageDiv").childNodes;
+//		var innerCounter = 0;
+//		alert("imageLoaded " + layerIndex);
+//
+//			while(innerCounter > listOfChildren)
+//			{
+//			if(listOfChildren[innerCounter] == layerNames[layerIndex])
+//				{
+//					 alert("imageLoaded " + layerIndex);
+//					window.frames['myFrame'].document.getElementById("imageDiv").removeChild(listOfChildren[innerCounter]);
+//					window.frames['myFrame'].document.getElementById("imageDiv").appendChild(currentListOfLayers[counter]);
+//				}		
+//			}
+//		}
+//		counter = counter + 1;
+// }	
+//}
+
+
+//updateLayers()
+//--------------
+//This function is called when the check boxes are changed.
+//The array called currentListOfLayers is generated here.
+
+function updateLayers(layerValue)
+{
+	console.log("The layer called "+ layerValue.id+ " is being updated")
+	if(layerValue.getAttribute("checked") == "true")
+	{
+	    var layerNum = parseInt(layerValue.getAttribute("layerNum"))
+	 	currentListOfLayers.push(totalListOfLayers[layerNum])
+	 	//alert("set to true");
+	 	layerValue.checked = false
+	 	layerValue.setAttribute("checked","false")
+	    var pic = layerValue.children[0]
+	    pic.width=pic.width+20
+	    pic.height=pic.height+20
+	    pic.style.opacity = 1;
+	}
+	else
+	{
+	//layerValue.checked = true
+	//alert("set to false");
+	layerValue.setAttribute("checked","true")
+    var pic = layerValue.children[0]
+	pic.width=pic.width-20
+	pic.height=pic.height-20
+	pic.style.opacity = .3;
+
+	var i = 0;
+	while(i < currentListOfLayers.length)
+		{
+			if( layerValue.id == "Check_"+currentListOfLayers[i].id)
+			{
+				currentListOfLayers[i]= currentListOfLayers[currentListOfLayers.length - 1];
+				currentListOfLayers.pop()		
+			}
+		i = i + 1;
+		}
+	}
+	displayLayers();
+	
+}
+
+//setThumb()
+//There are several thumb nails at the top of the webpage and the correct image must be loaded into them.
+function upDateThumb()
+{
+//alert("setThumb")
+	var listOfThumb = document.getElementsByClassName("thumb_img");
+	for(var i = 0; i<listOfThumb.length;i++)
+	{
+		listOfThumb[i].src = totalListOfLayers[i].src;
+		listOfThumb[i].style.opacity = .3;
+		//alert("setThumb")
+	}
+}
+upDateThumb()
+
+</script>
+
+
+</body>
+</html>

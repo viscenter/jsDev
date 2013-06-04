@@ -1,0 +1,295 @@
+<html>
+<head>
+  <!--
+  Including the CITE object file and the helper file.
+  The helper file "./cite_obj_interface2.js" can be inlinned into this file later
+  -->
+  <script type="text/javascript" language="Javascript" SRC="./citeJB.js"></script>
+  <script type="text/javascript" language="Javascript" SRC="./cite_obj_interface2.js"></script>
+
+
+<script>
+
+	setUpObj_Layers();      //Running the helper function to set up the CITE objects
+	setUpThumbNail();//Same as above for smaller images
+	
+	totalListOfLayers = new Array(); //We only create this once and keep this array till the end
+	                                 //It will hold a max of 5 images for our uses
+     
+    currentListOfLayers = new Array(); //We only create this once and keep this array till the end
+                                        //This is holds the images that we are currently viewing. 
+                                        //It's elements will always be a subset of the totalListOfImages
+  
+  
+
+	imageSize = 750;//This is bad form
+  			     //This value holds the state of the zoom for all images
+  					
+
+  
+  	
+   layerNames = new Array();
+   //The layerNames array allows us to use numbers when building the layers 
+   //(I had difficulty with javascript enum)
+   layerNames[0] = "ChadRGB.Chad"                //NOTE no "-" on the end
+   layerNames[1] = "ChadPOC.Chad-Multispectral1-";
+   layerNames[2] = "ChadPOC.Chad-Background-";
+   layerNames[3] = "ChadPOC.Chad-Latin-"; 
+   layerNames[4] = "ChadPOC.Chad-English-";
+   layerNames[5] = "ChadPOC.Chad-2003-";
+   layerNames[6] = "ChadPOC.Chad-1962-";
+   layerNames[7] = "ChadPOC.Chad-1929-";
+</script>
+
+
+</head>
+<body>
+<table border="0" width="100%">
+  <col width="30%">
+  <col width="70%">
+  <tr><th>
+<div id="allControls">
+	<div id="buttons">
+	<p>
+	<button id="prev" onclick="prev()"  height="3%" width="3%"  align="left" zIndex="2">previous</button>
+	<button id="next" onclick="next()"  height="3%" width="3%" align="right">next</button>
+	</p>
+	</div
+	<div ="checkBoxes">
+	<form>
+		<!--
+		The check boxes are below. They are VERY short term. They were relatively simple to setup and test with
+		-->
+		<input name="box" id="Check_ChadRGB.Chad" type="checkbox" onclick="updateLayers(0)" /> RGB <br>
+		<input name="box" id="Check_ChadPOC.Chad-Multispectral1-" type="checkbox" onclick="updateLayers(1)" /> Multi<br>
+		<input name="box" id="Check_ChadPOC.Chad-Background-" type="checkbox" onclick="updateLayers(2)" /> Background<br>
+		<input name="box" id="Check_ChadPOC.Chad-Latin-" type="checkbox" onclick="updateLayers(3)" /> Latin <br>
+		<input name="box" id="Check_ChadPOC.Chad-English-" type="checkbox" onclick="updateLayers(4)" /> English <br>
+		<input name="box" id="Check_ChadPOC.Chad-2003-" type="checkbox" onclick="updateLayers(5)" /> 2003 <br>
+		<input name="box" id="Check_ChadPOC.Chad-1962-" type="checkbox" onclick="updateLayers(6)" /> 1962 <br>
+		<input name="box" id="Check_ChadPOC.Chad-1929-" type="checkbox" onclick="updateLayers(7)" /> 1929 <br>
+	</form>
+	</div>
+	<div id="magButtons">
+	<button onclick="bigger()">+</button>
+	<button onclick="smaller()">-</button>
+	</div>
+</div>
+</th><th>
+<iframe align="justify" id="myFrame" width="750px" height="750px" src="clean.html"></iframe>
+<th></tr></table>
+</body>
+
+<script>
+
+
+ chad_cite_Layers.setPage(79);
+ getlayers();
+
+window.setInterval(frustration(),1500);
+
+
+
+function prev()
+{ 
+	chad_cite_Layers.prevPage();
+    getlayers();
+   // displayLayers();
+}
+
+function next()
+{
+	chad_cite_Layers.nextPage();
+    //for( var i=0; i<totalListOfLayers.length;i++)
+   // {
+    //	totalListOfLayers[i].onload = displayLayers();				
+    //	alert(i + " onload");							
+    //}
+    getlayers();
+    //displayLayers()
+}
+
+//bigger()
+//---------
+//Bigger is called when the button with the "+" is clicked.
+//Bigger sets the "imageSize" then has the images redrawn
+function bigger()
+{
+
+	
+	var y = window.frames['myFrame'].document.getElementById("draggable").style.top;
+	var x = window.frames['myFrame'].document.getElementById("draggable").style.left;
+	window.frames['myFrame'].document.getElementById("draggable").style.left = parseInt(x,0) - (( (3.0/2.0)*(imageSize)  - imageSize)/2)  ;//parseInt(x,0) - ((2.0/3.0)*(imageSize/4) )/2;
+	window.frames['myFrame'].document.getElementById("draggable").style.top  = parseInt(y,0) - (( (3.0/2.0)*(imageSize)  - imageSize)/2)
+	
+	imageSize = (imageSize*3)/2;
+	displayLayers();
+}
+
+
+//smaller()
+//---------
+//Smaller is called when the button with the "-" is clicked.
+//Bigger sets the "imageSize" then has the images redrawn
+function smaller()
+{
+	var y = window.frames['myFrame'].document.getElementById("draggable").style.top;
+	var x = window.frames['myFrame'].document.getElementById("draggable").style.left;
+	window.frames['myFrame'].document.getElementById("draggable").style.left = parseInt(x,0) - (( (2.0/3.0)*(imageSize)  - imageSize)/2)  ;//parseInt(x,0) - ((2.0/3.0)*(imageSize/4) )/2;
+	window.frames['myFrame'].document.getElementById("draggable").style.top  = parseInt(y,0) - (( (2.0/3.0)*(imageSize)  - imageSize)/2)
+	imageSize = 2*(imageSize/3);
+	displayLayers();
+}
+
+//getLayers()
+//-------------
+//GetLayers uses the cite object called chad_cite_Layers, to 
+//generate a an array of all the layers called totalListOfLayers.
+//This could lead to great load times.
+function getlayers()
+{
+	var counter = 0;
+	while(counter < 8)
+	{
+		if(totalListOfLayers[counter] != undefined)
+		{
+			delete totalListOfLayers[counter];
+			//alert("delete"); //works now
+		}
+		counter = counter + 1;
+	}
+	
+	
+	totalListOfLayers = [];
+	counter= 0;
+	while(counter < 8)
+	{
+		temp = new Image();
+		chad_cite_Layers.setLayer(layerNames[counter]);
+		temp.onload = frustration;
+	    temp.src = chad_cite_Layers.update();
+	    temp.height = imageSize;
+	    temp.width = imageSize;
+	    temp.name ="SingleMainImage";
+	    temp.id = layerNames[counter];
+	    temp.style.position = 'absolute'
+		totalListOfLayers.push(temp);   
+		//alert("hello");
+		counter = counter + 1;
+	}
+	
+	
+	while(window.frames['myFrame'].document.getElementById("imageDiv").hasChildNodes() == true)
+	{
+		window.frames['myFrame'].document.getElementById("imageDiv").removeChild(window.frames['myFrame'].document.getElementById("imageDiv").childNodes[0]);
+	}
+	
+}
+
+
+
+//displayLayers()
+//-----------------------
+//This function displays the images that are in the currentListOfLayers.
+//To do this it removes all images that were being displayed and then, iterates 
+//the currentListOfLayers array.
+function displayLayers()
+{
+	
+	while(window.frames['myFrame'].document.getElementById("imageDiv").hasChildNodes() == true)
+	{
+		window.frames['myFrame'].document.getElementById("imageDiv").removeChild(window.frames['myFrame'].document.getElementById("imageDiv").childNodes[0]);
+	}
+
+	var counter = 0;
+	while(counter < currentListOfLayers.length)
+	{
+		currentListOfLayers[counter].align="center";
+		currentListOfLayers[counter].width =  imageSize;
+		currentListOfLayers[counter].height = imageSize; 
+		currentListOfLayers[counter].style.opacity = 1.0/currentListOfLayers.length;
+		(window.frames['myFrame'].document.getElementById("imageDiv")).appendChild(currentListOfLayers[counter]);
+		counter = counter + 1;
+	}
+	
+}
+
+
+function frustration()
+{
+	
+	currentListOfLayers = [];
+	for(var i = 0; i < totalListOfLayers.length; i++)
+	{
+		updateLayers(i);
+	}
+	displayLayers();
+}
+
+//imageLoaded(layerIndex)
+//------------
+//This is the code that will run after an image has fully loaded
+//function imageLoaded( layerIndex)
+//{
+//  var counter =  0;
+// while(counter  < currentListOfLayers.length)
+//	{
+//		if(currentListOfLayer[counter].id == layerNames[layerIndex])  //if this is true, then the Image that was just loaded needs to be displayed
+//		{
+//		listOfChildren = window.frames['myFrame'].document.getElementById("imageDiv").childNodes;
+//		var innerCounter = 0;
+//		alert("imageLoaded " + layerIndex);
+//
+//			while(innerCounter > listOfChildren)
+//			{
+//			if(listOfChildren[innerCounter] == layerNames[layerIndex])
+//				{
+//					 alert("imageLoaded " + layerIndex);
+//					window.frames['myFrame'].document.getElementById("imageDiv").removeChild(listOfChildren[innerCounter]);
+//					window.frames['myFrame'].document.getElementById("imageDiv").appendChild(currentListOfLayers[counter]);
+//				}		
+//			}
+//		}
+//		counter = counter + 1;
+// }	
+//}
+
+
+//updateLayers()
+//--------------
+//This function is called when the check boxes are changed.
+//The array called currentListOfLayers is generated here.
+
+function updateLayers(layerValue)
+{
+	console.log("The layer called "+ layerNames[layerValue]+ " is being updated")
+	if(((document.getElementById("Check_"+ layerNames[layerValue])).checked) === true)
+	{
+	 	currentListOfLayers.push(totalListOfLayers[layerValue])
+	 	//alert("set to true");
+	}
+	else
+	{
+	//alert("set to false");
+	var i = 0;
+	while(i < currentListOfLayers.length)
+		{
+		//	console.log(totalListOfLayers[layerValue].id + "  " + currentListOfLayers[i].id);		
+			if( totalListOfLayers[layerValue].id == currentListOfLayers[i].id)
+			{
+				currentListOfLayers[i]= currentListOfLayers[currentListOfLayers.length - 1];
+				//currentListOfLayers[currentListOfLayers.lenght - 1] = currentListOfLayers[i];
+				currentListOfLayers.pop()
+			
+			}
+		i = i + 1;
+		}
+	}
+	displayLayers();
+	
+}
+
+</script>
+
+
+</html>
